@@ -1,0 +1,92 @@
+"use client";
+
+import React, {useEffect, useRef, useState} from 'react';
+import Button from "@/components/ui/Button";
+import {Logo, LogoWithText} from "@/assets/icons";
+import {cn} from "tailwind-variants";
+import {useScrollStore} from "@/lib/scrollState";
+
+const Header = () => {
+    const [visible, setVisible] = useState(true);
+    const [inverted, setInverted] = useState(true);
+    const lastScrollY = useRef(0);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            const currentScrollY = window.scrollY;
+            const {isPinned} = useScrollStore.getState();
+
+            if (currentScrollY < 10) {
+                setVisible(true);
+                setInverted(true);
+            } else if (currentScrollY > lastScrollY.current) {
+                setVisible(false);
+            } else if (!isPinned) {
+                setVisible(true);
+                setInverted(false);
+            }
+
+            lastScrollY.current = currentScrollY;
+        };
+
+        const unsub = useScrollStore.subscribe(
+            (s) => s.isPinned,
+            (isPinned) => { if (isPinned) setVisible(false); }
+        );
+
+        window.addEventListener("scroll", handleScroll, {passive: true});
+        return () => {
+            window.removeEventListener("scroll", handleScroll);
+            unsub();
+        };
+    }, []);
+
+
+    return (
+        <header
+            className={cn(
+                "fixed top-0 left-0 right-0 z-50",
+                "h-[81px] flex items-center",
+                "transition-all duration-300 ease-in-out",
+                "backdrop-blur-[8px]",
+                visible ? "translate-y-0" : "-translate-y-full",
+                inverted
+                    ? "text-white bg-black/10"
+                    : "text-royal-green-800 bg-white/90"
+            )}
+        >
+            <div className="container h-full">
+                <div
+                    className="relative flex items-center gap-10 grid grid-cols-12 h-full"
+                >
+                    <span
+                        className={cn(
+                            "absolute bottom-0 left-0 right-0",
+                            "h-[1px] translate-y-1/2",
+                            inverted ? "bg-white/20" : "bg-gradation-300",
+                            visible ? "opacity-100 delay-0" : "opacity-0 delay-300"
+                        )}
+                    />
+                    <a href="#" className="flex grow-1 col-span-2">
+                        {inverted ? <Logo/> : <LogoWithText/>}
+                    </a>
+                    <div className="flex col-span-8 justify-between">
+                        <div className="flex gap-6">
+                            <a className="text-l" href="#process">Процесс</a>
+                            <a className="text-l" href="#projects">Проекты</a>
+                            <a className="text-l" href="#services">Услуги</a>
+                            <a className="text-l" href="#reviews">Отзывы</a>
+                            <a className="text-l" href="#faq">Q&A</a>
+                        </div>
+                        <a href="tel:+74957927751">+7 (495) 792‑77‑51</a>
+                    </div>
+                    <Button inverted={inverted} className="col-span-2">
+                        Связаться
+                    </Button>
+                </div>
+            </div>
+        </header>
+    );
+};
+
+export default Header;
