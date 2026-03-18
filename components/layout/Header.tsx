@@ -41,6 +41,10 @@ const Header = () => {
         };
     }, []);
 
+    const scrollTo = (id: string) => (e: React.MouseEvent) => {
+        e.preventDefault();
+        document.getElementById(id)?.scrollIntoView({behavior: "smooth"});
+    };
 
     return (
         <header
@@ -72,11 +76,11 @@ const Header = () => {
                     </a>
                     <div className="flex col-span-8 justify-between">
                         <div className="flex gap-6">
-                            <a className="text-l" href="#process">Процесс</a>
-                            <a className="text-l" href="#projects">Проекты</a>
-                            <a className="text-l" href="#services">Услуги</a>
-                            <a className="text-l" href="#reviews">Отзывы</a>
-                            <a className="text-l" href="#faq">Q&A</a>
+                            <a className="text-l" href="#process" onClick={scrollTo("process")}>Процесс</a>
+                            <a className="text-l" href="#projects" onClick={scrollTo("projects")}>Проекты</a>
+                            <a className="text-l" href="#services" onClick={scrollTo("services")}>Услуги</a>
+                            <a className="text-l" href="#reviews" onClick={scrollTo("reviews")}>Отзывы</a>
+                            <a className="text-l" href="#faq" onClick={scrollTo("faq")}>Q&A</a>
                         </div>
                         <a href="tel:+74957927751">+7 (495) 792‑77‑51</a>
                     </div>

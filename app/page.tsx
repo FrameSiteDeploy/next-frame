@@ -1,6 +1,6 @@
-import Hero from "@/components/screens/Hero";
-import Process from "@/components/screens/Process";
-import Projects from "@/components/screens/Projects";
+import Hero from "@/sections/Hero";
+import ProcessSlider from "@/sections/ProcessSlider";
+import Projects from "@/sections/Projects";
 import React from "react";
 import GreenBanner from "@/components/ui/GreenBanner";
 
@@ -8,7 +8,7 @@ export default function Home() {
     return (
         <>
             <Hero/>
-            <Process/>
+            <ProcessSlider/>
             <GreenBanner
                 stat="10 000+ м²"
                 description="Общая площадь построенных частных домов в Москве и Московской области"
