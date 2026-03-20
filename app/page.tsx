@@ -3,6 +3,9 @@ import ProcessSlider from "@/sections/ProcessSlider";
 import Projects from "@/sections/Projects";
 import React from "react";
 import GreenBanner from "@/components/ui/GreenBanner";
+import Reviews from "@/sections/Reviews";
+import Services from "@/sections/Services";
+import Faq from "@/sections/Faq";
 
 export default function Home() {
     return (
@@ -18,17 +21,17 @@ export default function Home() {
                 stat="15 лет"
                 description="Работаем на рынке проектирования  и строительства частных домов и коттеджей"
             />
-            {/*   TODO: секция отзывов */}
+            <Reviews/>
             <GreenBanner
                 stat="4,5 млн руб"
                 description="Минимальная стоимость строительства частного дома «под ключ» со всеми работами и материалами"
             />
-            {/*    TODO: секция услуг*/}
+            <Services/>
             <GreenBanner
                 stat="150 проектов"
                 description="Имеем опыт работы с разными задачами: от семейных домов до сложных объектов"
             />
-            {/*    TODO: вопросы и ответы*/}
+            <Faq/>
         </>
     );
 }

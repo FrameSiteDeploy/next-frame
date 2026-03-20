@@ -14,13 +14,13 @@ const Section: FC<SectionProps> = ({children, title, subtitle, inverted, ...prop
             {...props}
             className={cn(
                 props.className,
-                "py-24 min-h-[100vh]",
+                "py-24 min-h-[100vh] h-[100vh]",
                 {
                     "bg-gradation-800": inverted
                 }
             )}
         >
-            <div className="container flex flex-col gap-12">
+            <div className="container flex flex-col gap-12 h-full">
                 <div className={cn(
                     "grid grid-cols-12 gap-10"
                 )}>

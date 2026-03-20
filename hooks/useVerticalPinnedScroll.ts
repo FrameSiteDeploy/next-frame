@@ -1,4 +1,5 @@
-import {useRef, useState} from "react";
+// hooks/useVerticalPinnedScroll.ts
+import {useRef} from "react";
 import {useGSAP} from "@gsap/react";
 import gsap from "gsap";
 import {ScrollTrigger} from "gsap/ScrollTrigger";
@@ -6,20 +7,19 @@ import {useScrollStore} from "@/lib/scrollState";
 
 gsap.registerPlugin(ScrollTrigger);
 
-interface UsePinnedScrollOptions {
+interface UseVerticalPinnedScrollOptions {
     count: number;
     scrollPerStep: number;
-    onSlideChange: (next: number) => void;
+    onIndexChange: (next: number) => void;
 }
 
-export const usePinnedScroll = ({
-                                    count,
-                                    scrollPerStep,
-                                    onSlideChange,
-                                }: UsePinnedScrollOptions) => {
+export const useVerticalPinnedScroll = ({
+                                            count,
+                                            scrollPerStep,
+                                            onIndexChange,
+                                        }: UseVerticalPinnedScrollOptions) => {
     const wrapRef = useRef<HTMLDivElement>(null);
     const currentRef = useRef(0);
-    const [currentIndex, setCurrentIndex] = useState(0);
 
     useGSAP(() => {
         const wrap = wrapRef.current;
@@ -50,12 +50,11 @@ export const usePinnedScroll = ({
 
                 if (next !== currentRef.current) {
                     currentRef.current = next;
-                    setCurrentIndex(next);
-                    onSlideChange(next);
+                    onIndexChange(next);
                 }
             },
         });
     }, {scope: wrapRef});
 
-    return {wrapRef, currentIndex};
+    return wrapRef;
 };

@@ -1,6 +1,6 @@
 "use client";
 
-import React, {useRef, useState} from "react";
+import React, {useRef} from "react";
 import {useGSAP} from "@gsap/react";
 import Section from "@/components/layout/Section";
 import {processSteps} from "@/data/processSteps";
@@ -30,7 +30,6 @@ const CONFIG = {
     },
 } as const;
 
-
 const ProcessSlider = () => {
     const imagesRef = useRef<HTMLImageElement[]>([]);
     const textsRef = useRef<HTMLDivElement[]>([]);
@@ -43,7 +42,7 @@ const ProcessSlider = () => {
         textsRef,
     });
 
-    const wrapRef = usePinnedScroll({
+    const {wrapRef} = usePinnedScroll({
         count: processSteps.length,
         scrollPerStep: CONFIG.scroll.scrollPerStep,
         onSlideChange: goTo,
