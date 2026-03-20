@@ -4,6 +4,7 @@ import "../styles/globals.scss";
 import Header from "@/components/layout/Header";
 import React from "react";
 import LenisProvider from "@/components/providers/LenisProvider";
+import Footer from "@/components/layout/Footer";
 
 const montserrat = Montserrat({
     subsets: ["latin", "cyrillic"],
@@ -38,7 +39,7 @@ export default function RootLayout({
             <LenisProvider>
                 {children}
             </LenisProvider>
-            {/*    TODO: footer*/}
+            <Footer/>
         </div>
         </body>
         </html>

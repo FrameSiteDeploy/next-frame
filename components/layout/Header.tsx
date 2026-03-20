@@ -72,7 +72,7 @@ const Header = () => {
                         )}
                     />
                     <a href="#" className="flex grow-1 col-span-2">
-                        {inverted ? <Logo/> : <LogoWithText/>}
+                        {inverted ? <Logo/> : <LogoWithText className="w-[140px] h-[48px] fill-gradation-800" />}
                     </a>
                     <div className="flex col-span-8 justify-between">
                         <div className="flex gap-6">
