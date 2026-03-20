@@ -6,12 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="710eadcd-9b48-4f6e-85f6-02c8c6d3ec2c" name="Changes" comment="init">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/layout/Section.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/layout/Section.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hooks/usePinnedScroll.ts" beforeDir="false" afterPath="$PROJECT_DIR$/hooks/usePinnedScroll.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sections/ProcessSlider.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/sections/ProcessSlider.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sections/Projects.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/sections/Projects.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/styles/_colors.scss" beforeDir="false" afterPath="$PROJECT_DIR$/styles/_colors.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sections/Services.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/sections/Services.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/styles/globals.scss" beforeDir="false" afterPath="$PROJECT_DIR$/styles/globals.scss" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -117,7 +115,7 @@
       <workItem from="1773898279633" duration="4924000" />
       <workItem from="1773913472429" duration="1000" />
       <workItem from="1773913482465" duration="1435000" />
-      <workItem from="1773988757150" duration="7561000" />
+      <workItem from="1773988757150" duration="11800000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <option name="closed" value="true" />

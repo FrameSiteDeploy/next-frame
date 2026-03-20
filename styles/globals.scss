@@ -54,3 +54,41 @@ html.lenis body {
     }
   }
 }
+
+@keyframes accordion-down {
+  from { grid-template-rows: 0fr; }
+  to { grid-template-rows: 1fr; }
+}
+
+@keyframes accordion-up {
+  from { grid-template-rows: 1fr; }
+  to { grid-template-rows: 0fr; }
+}
+
+@keyframes content-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes content-out {
+  from { opacity: 1; transform: translateY(0); }
+  to { opacity: 0; transform: translateY(-8px); }
+}
+
+@utility animate-accordion-down {
+  grid-template-rows: 0fr;
+  animation: accordion-down 0.3s ease-out forwards;
+}
+
+@utility animate-accordion-up {
+  grid-template-rows: 1fr;
+  animation: accordion-up 0.3s ease-out forwards;
+}
+
+@utility animate-content-in {
+  animation: content-in 0.25s ease-out forwards;
+}
+
+@utility animate-content-out {
+  animation: content-out 0.2s ease-in forwards;
+}
