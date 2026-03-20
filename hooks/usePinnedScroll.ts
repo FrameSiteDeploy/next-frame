@@ -1,4 +1,4 @@
-import {useRef, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import {useGSAP} from "@gsap/react";
 import gsap from "gsap";
 import {ScrollTrigger} from "gsap/ScrollTrigger";
@@ -40,10 +40,22 @@ export const usePinnedScroll = ({
                 ease: "power2.inOut",
                 delay: 0.05,
             },
-            onEnter: () => setIsPinned(true),
-            onLeave: () => setIsPinned(false),
-            onEnterBack: () => setIsPinned(true),
-            onLeaveBack: () => setIsPinned(false),
+            onEnter: () => {
+                setIsPinned(true)
+                console.log('onEnter ispinned true')
+            },
+            onLeave: () => {
+                setIsPinned(false)
+                console.log('onLeave ispinned false')
+            },
+            onEnterBack: () => {
+                setIsPinned(true)
+                console.log('onEnterBack ispinned true')
+            },
+            onLeaveBack: () => {
+                setIsPinned(false)
+                console.log('onLeaveBack ispinned false')
+            },
             onUpdate: (self) => {
                 const rawProgress = self.progress * (count - 1);
                 const next = Math.round(rawProgress);

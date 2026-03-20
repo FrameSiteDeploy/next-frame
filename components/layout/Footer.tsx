@@ -13,6 +13,15 @@ const Footer = () => {
                     </div>
                     <div className="divider h-[1px] bg-gradation-600"></div>
                 </div>
+                <div className="col-span-2">
+
+                </div>
+                <div className="col-start-3 col-span-5">
+
+                </div>
+                <div className="col-start-8 col-span-5">
+
+                </div>
             </div>
         </footer>
     );

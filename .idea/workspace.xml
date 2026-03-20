@@ -6,14 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="710eadcd-9b48-4f6e-85f6-02c8c6d3ec2c" name="Changes" comment="init">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/layout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/icons/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/assets/icons/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/icons/logoWithText.svg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/icons/logoWithText.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/ServicesAccordion.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/ServicesAccordion.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/layout/Footer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/layout/Footer.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/components/layout/Header.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/layout/Header.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sections/Faq.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/sections/Faq.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sections/Services.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/sections/Services.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/styles/globals.scss" beforeDir="false" afterPath="$PROJECT_DIR$/styles/globals.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/processSteps.ts" beforeDir="false" afterPath="$PROJECT_DIR$/data/processSteps.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hooks/usePinnedScroll.ts" beforeDir="false" afterPath="$PROJECT_DIR$/hooks/usePinnedScroll.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -119,7 +115,7 @@
       <workItem from="1773898279633" duration="4924000" />
       <workItem from="1773913472429" duration="1000" />
       <workItem from="1773913482465" duration="1435000" />
-      <workItem from="1773988757150" duration="15860000" />
+      <workItem from="1773988757150" duration="17806000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <option name="closed" value="true" />

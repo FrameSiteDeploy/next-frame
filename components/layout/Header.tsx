@@ -16,28 +16,26 @@ const Header = () => {
             const currentScrollY = window.scrollY;
             const {isPinned} = useScrollStore.getState();
 
-            if (currentScrollY < 10) {
+            console.log('isPinned', isPinned, currentScrollY);
+
+            if (isPinned) {
+                setVisible(false)
+            } else if (currentScrollY < 10) {
                 setVisible(true);
                 setInverted(true);
             } else if (currentScrollY > lastScrollY.current) {
                 setVisible(false);
-            } else if (!isPinned) {
+            } else {
                 setVisible(true);
                 setInverted(false);
             }
 
+
             lastScrollY.current = currentScrollY;
         };
-
-        const unsub = useScrollStore.subscribe(
-            (s) => s.isPinned,
-            (isPinned) => { if (isPinned) setVisible(false); }
-        );
-
         window.addEventListener("scroll", handleScroll, {passive: true});
         return () => {
             window.removeEventListener("scroll", handleScroll);
-            unsub();
         };
     }, []);
 
@@ -72,7 +70,7 @@ const Header = () => {
                         )}
                     />
                     <a href="#" className="flex grow-1 col-span-2">
-                        {inverted ? <Logo/> : <LogoWithText className="w-[140px] h-[48px] fill-gradation-800" />}
+                        {inverted ? <Logo/> : <LogoWithText className="w-[140px] h-[48px] fill-gradation-800"/>}
                     </a>
                     <div className="flex col-span-8 justify-between">
                         <div className="flex gap-6">
