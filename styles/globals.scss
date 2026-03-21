@@ -55,14 +55,40 @@ html.lenis body {
   }
 }
 
+@keyframes fade-in {
+  from {
+    opacity: 0
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
 @keyframes accordion-down {
-  from { height: 0px; }
-  to { height: var(--radix-accordion-content-height); }
+  from {
+    height: 0px;
+  }
+  to {
+    height: var(--radix-accordion-content-height);
+  }
 }
 
 @keyframes accordion-up {
-  from { height: var(--radix-accordion-content-height); }
-  to { height: 0px; }
+  from {
+    height: var(--radix-accordion-content-height);
+  }
+  to {
+    height: 0px;
+  }
 }
 
 @utility animate-accordion-down {
@@ -72,3 +98,12 @@ html.lenis body {
 @utility animate-accordion-up {
   animation: accordion-up 0.3s ease-out;
 }
+
+@utility animate-fade-in {
+  animation: fade-in 0.3s ease-out;
+}
+
+@utility animate-fade-out {
+  animation: fade-out 0.3s ease-out;
+}
+

@@ -42,19 +42,19 @@ export const usePinnedScroll = ({
             },
             onEnter: () => {
                 setIsPinned(true)
-                console.log('onEnter ispinned true')
+                // console.log('onEnter ispinned true')
             },
             onLeave: () => {
                 setIsPinned(false)
-                console.log('onLeave ispinned false')
+                // console.log('onLeave ispinned false')
             },
             onEnterBack: () => {
                 setIsPinned(true)
-                console.log('onEnterBack ispinned true')
+                // console.log('onEnterBack ispinned true')
             },
             onLeaveBack: () => {
                 setIsPinned(false)
-                console.log('onLeaveBack ispinned false')
+                // console.log('onLeaveBack ispinned false')
             },
             onUpdate: (self) => {
                 const rawProgress = self.progress * (count - 1);

@@ -32,8 +32,8 @@ const FaqAccordion = () => {
                     </div>
 
                     <Accordion.Content
-                        className="overflow-hidden data-[state=open]:animate-accordion-down data-[state=closed]:animate-accordion-up">
-                        <div className="pt-3 text-l text-gradation-600">
+                        className="overflow-hidden data-[state=open]:animate-accordion-down data-[state=closed]:animate-accordion-up h-[230px] flex flex-col">
+                        <div className="self-end mt-auto text-l text-gradation-600 data-[state=open]:animate-fade-in data-[state=closed]:animate-fade-out">
                             <p>{item.answer}</p>
                         </div>
                     </Accordion.Content>

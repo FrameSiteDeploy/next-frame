@@ -15,7 +15,7 @@ const ServicesAccordion = () => {
                 <Accordion.Item
                     key={item.id}
                     value={item.id}
-                    className="relative group"  // убрали gap-6 и grow-1
+                    className="relative group"
                 >
                     <Image
                         width={160}
@@ -25,7 +25,6 @@ const ServicesAccordion = () => {
                         className="absolute right-0 top-0 translate-x-[calc(100%+40px)] hidden group-data-[state=open]:block"
                     />
 
-                    {/* divider + заголовок: gap 24px */}
                     <div className="flex flex-col gap-6">
                         <div className="divider h-[1px] w-full bg-gradation-300"/>
 
@@ -38,10 +37,9 @@ const ServicesAccordion = () => {
                         </Accordion.Trigger>
                     </div>
 
-                    {/* Content: gap от заголовка до текста 12px */}
                     <Accordion.Content
-                        className="overflow-hidden data-[state=open]:animate-accordion-down data-[state=closed]:animate-accordion-up">
-                        <div className="flex flex-col gap-6 pt-3"> {/* pt-3 = 12px от заголовка */}
+                        className="overflow-hidden data-[state=open]:animate-accordion-down data-[state=closed]:animate-accordion-up h-[404px]">
+                        <div className="flex flex-col justify-between gap-6 pt-3 h-full">
                             <div className="flex flex-col gap-2 text-l text-gradation-200">
                                 {item.description.map((p, i) => (
                                     <p key={i}>{p}</p>

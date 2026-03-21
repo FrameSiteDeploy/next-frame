@@ -16,7 +16,7 @@ const Header = () => {
             const currentScrollY = window.scrollY;
             const {isPinned} = useScrollStore.getState();
 
-            console.log('isPinned', isPinned, currentScrollY);
+            // console.log('isPinned', isPinned, currentScrollY);
 
             if (isPinned) {
                 setVisible(false)
@@ -82,7 +82,7 @@ const Header = () => {
                         </div>
                         <a href="tel:+74957927751">+7 (495) 792‑77‑51</a>
                     </div>
-                    <Button inverted={inverted} className="col-span-2">
+                    <Button onClick={scrollTo("contacts")} inverted={inverted} className="col-span-2">
                         Связаться
                     </Button>
                 </div>
