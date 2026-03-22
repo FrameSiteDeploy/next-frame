@@ -29,10 +29,10 @@ type BaseSliderConfig = {
 export const useResponsiveSliderConfig = <T extends BaseSliderConfig>(config: T) => {
     const { breakpoint, ready } = useBreakpoint("2xl");
 
-    // console.log(breakpoint, ready);
-
     const sizes = config.sizesByBreakpoint[breakpoint];
     const gap = config.gapByBreakpoint[breakpoint];
+
+    const animated = breakpoint === "xl" || breakpoint === "2xl";
 
     return {
         breakpoint,
@@ -41,5 +41,6 @@ export const useResponsiveSliderConfig = <T extends BaseSliderConfig>(config: T)
         gap,
         animation: config.animation,
         scrollPerStep: config.scrollPerStep,
+        animated,
     };
 };

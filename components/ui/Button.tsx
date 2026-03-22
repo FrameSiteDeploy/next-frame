@@ -1,4 +1,8 @@
-import {FC, ButtonHTMLAttributes, ReactNode} from "react";
+import {
+    ButtonHTMLAttributes,
+    ReactNode,
+    forwardRef,
+} from "react";
 import {tv, type VariantProps} from "tailwind-variants";
 
 const button = tv({
@@ -8,7 +12,6 @@ const button = tv({
         "font-semibold font-[var(--font-manrope)] whitespace-nowrap",
         "transition-[background,color,border-color] duration-200 ease-in-out",
         "disabled:opacity-40 disabled:pointer-events-none",
-        // иконки красятся в цвет текста
         "[&_svg]:fill-current",
     ],
     variants: {
@@ -44,7 +47,7 @@ const button = tv({
             variant: "secondary",
             inverted: true,
             class:
-                "text-[#F4F5F5] border-[#F4F5F5] hover:bg-white/10 active:bg-white/20",
+                "text-[#F4F5F5] border-[#F4F5F5] hover:bg-white/10 active:bg:white/20",
         },
         {
             variant: "ghost",
@@ -69,27 +72,43 @@ export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> &
     endIcon?: ReactNode;
 };
 
-const Button: FC<ButtonProps> = ({
-                                     children,
-                                     variant,
-                                     size,
-                                     inverted,
-                                     iconOnly,
-                                     startIcon,
-                                     endIcon,
-                                     className,
-                                     ...props
-                                 }) => {
-    return (
-        <button
-            className={button({variant, size, inverted, iconOnly, className})}
-            {...props}
-        >
-            {startIcon && <span className="inline-flex items-center shrink-0">{startIcon}</span>}
-            {!iconOnly && children}
-            {endIcon && <span className="inline-flex items-center shrink-0">{endIcon}</span>}
-        </button>
-    );
-};
+const Button = forwardRef<HTMLButtonElement, ButtonProps>(
+    (
+        {
+            children,
+            variant,
+            size,
+            inverted,
+            iconOnly,
+            startIcon,
+            endIcon,
+            className,
+            ...props
+        },
+        ref
+    ) => {
+        return (
+            <button
+                ref={ref}
+                className={button({variant, size, inverted, iconOnly, className})}
+                {...props}
+            >
+                {startIcon && (
+                    <span className="inline-flex items-center shrink-0">
+                        {startIcon}
+                    </span>
+                )}
+                {!iconOnly && children}
+                {endIcon && (
+                    <span className="inline-flex items-center shrink-0">
+                        {endIcon}
+                    </span>
+                )}
+            </button>
+        );
+    }
+);
+
+Button.displayName = "Button";
 
 export default Button;

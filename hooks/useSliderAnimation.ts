@@ -28,15 +28,15 @@ interface UseSliderAnimationOptions {
 
 const getSizes = (i: number, active: number, s: Sizes) => {
     if (i === active) return s.active;
-    if (i === active + 1) return s.next;
-    return s.inactive;
+    if (i < active) return s.inactive;
+    return s.next;
 };
 
 const getX = (i: number, active: number, s: Sizes, g: number): number => {
     if (i === active) return 0;
     if (i < active) return -(active - i) * (s.inactive.w + g);
     if (i === active + 1) return s.active.w + g;
-    return s.active.w + g + s.next.w + g + (i - active - 2) * (s.inactive.w + g);
+    return s.active.w + g + s.next.w + g + (i - active - 2) * (s.next.w + g);
 };
 
 export const useSliderAnimation = ({

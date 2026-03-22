@@ -69,9 +69,14 @@ export const useBreakpoint = (defaultBreakpoint: BreakpointName = "md") => {
         return () => window.removeEventListener("resize", calc);
     }, []);
 
-    const isBelow = (bp: BreakpointName) => { /* как было */
+    const isBelow = (bp: BreakpointName) => {
+        const order: BreakpointName[] = ["xs", "sm", "md", "xl", "2xl"];
+        return order.indexOf(current) < order.indexOf(bp);
     };
-    const isAtLeast = (bp: BreakpointName) => { /* как было */
+
+    const isAtLeast = (bp: BreakpointName) => {
+        const order: BreakpointName[] = ["xs", "sm", "md", "xl", "2xl"];
+        return order.indexOf(current) >= order.indexOf(bp);
     };
 
     return {breakpoint: current, isBelow, isAtLeast, ready};

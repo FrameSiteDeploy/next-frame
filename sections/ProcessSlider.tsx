@@ -10,6 +10,8 @@ import {useSliderAnimation} from "@/hooks/useSliderAnimation";
 import SliderTrack from "@/components/slider/SliderTrack";
 import {useResponsiveSliderConfig} from "@/hooks/useResponsiveSliderConfig";
 import {PROCESS_SLIDER_CONFIG} from "@/config/processSliderConfig";
+import Button from "@/components/ui/Button";
+import {scrollTo} from "@/utils/scrollTo";
 
 const ProcessSlider = () => {
     const imagesRef = useRef<HTMLImageElement[]>([]);
@@ -26,11 +28,13 @@ const ProcessSlider = () => {
         textsRef,
     });
 
-    const {wrapRef} = usePinnedScroll({
+    const {wrapRef, currentIndex} = usePinnedScroll({
         count: processSteps.length,
         scrollPerStep,
         onSlideChange: goTo,
     });
+
+    const isLastStep = currentIndex === processSteps.length - 1;
 
     useGSAP(() => {
         if (!ready) return;
@@ -46,7 +50,7 @@ const ProcessSlider = () => {
                 id="process"
             >
                 <div className="grid-responsive">
-                    <div className="xl:col-start-3 xl:col-span-10">
+                    <div className="xl:col-start-3 xl:col-span-8">
 
                         <SliderTrack height={sizes.active.h}>
                             {processSteps.map((step, i) => (
@@ -61,10 +65,6 @@ const ProcessSlider = () => {
                                     fetchPriority={i === 0 ? "high" : "low"}
                                     decoding="async"
                                     className="absolute top-0 left-0 object-cover object-center"
-                                    // style={{
-                                    //     width: sizes.active.w,
-                                    //     height: sizes.active.h,
-                                    // }}
                                 />
                             ))}
                         </SliderTrack>
@@ -99,8 +99,19 @@ const ProcessSlider = () => {
                                 </div>
                             ))}
                         </div>
-
                     </div>
+                    <Button
+                        onClick={scrollTo("contacts")}
+                        className={`
+        col-start-11 col-span-2 h-23 bg-royal-green-800
+        flex items-center justify-center relative rounded-none
+        process-cta
+        ${isLastStep ? "process-cta-visible" : "process-cta-hidden"}
+    `}
+                    >
+                        Связаться
+                    </Button>
+
                 </div>
             </Section>
         </div>

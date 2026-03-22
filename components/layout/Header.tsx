@@ -6,6 +6,7 @@ import {Logo, LogoWithText, MenuLine, PhoneFill} from "@/assets/icons";
 import {cn} from "tailwind-variants";
 import {useScrollStore} from "@/lib/scrollState";
 import {useBreakpoint} from "@/hooks/useBreakpoint";
+import {scrollTo} from "@/utils/scrollTo";
 
 const Header = () => {
     const [visible, setVisible] = useState(true);
@@ -42,11 +43,6 @@ const Header = () => {
             window.removeEventListener("scroll", handleScroll);
         };
     }, []);
-
-    const scrollTo = (id: string) => (e: React.MouseEvent) => {
-        e.preventDefault();
-        document.getElementById(id)?.scrollIntoView({behavior: "smooth"});
-    };
 
     return (
         <header
