@@ -10,7 +10,7 @@ interface GreenBannerProps {
 const GreenBanner = ({stat, description}: GreenBannerProps) => {
     return (
         <div className="bg-royal-green-800">
-            <div className="container grid grid-cols-12 gap-10 items-center">
+            <div className="container grid-responsive items-center">
                 <div className="flex flex-col col-start-3 col-span-5 gap-4">
                     <h1 className="text-gradation-100">{formatText(stat)}</h1>
                     <p className="text-l text-gradation-100">{formatText(description)}</p>

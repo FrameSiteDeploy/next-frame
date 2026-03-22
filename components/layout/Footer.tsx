@@ -7,7 +7,7 @@ import ContactForm from "@/components/ContactForm";
 const Footer = () => {
     return (
         <footer id="contacts" className="bg-gradation-800 py-12 min-h-[100vh] h-[100vh]">
-            <div className="container grid grid-cols-12 gap-10">
+            <div className="container grid-responsive">
                 <div className="flex flex-col col-span-full gap-12">
                     <div className="py-4">
                         <div className="h-[266px] overflow-hidden flex items-center">
@@ -16,7 +16,7 @@ const Footer = () => {
                     </div>
                     <div className="divider h-[1px] bg-gradation-600"></div>
                 </div>
-                <div className="h-[504px] col-span-full grid grid-cols-12 gap-10">
+                <div className="h-[504px] col-span-full grid-responsive">
                     <div className="col-span-2 flex flex-col justify-between">
                         <div className="flex flex-col gap-3">
                             <p className="text-m text-gradation-200">Связь в медиа</p>

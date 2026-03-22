@@ -61,7 +61,7 @@ const ProcessSlider = () => {
                 subtitle="Процесс работы"
                 id="process"
             >
-                <div className="grid grid-cols-12 gap-10">
+                <div className="grid-responsive">
                     <div className="col-start-3 col-span-10">
 
                         <SliderTrack height={sizes.active.h}>

@@ -2,14 +2,18 @@
 
 import React, {useEffect, useRef, useState} from 'react';
 import Button from "@/components/ui/Button";
-import {Logo, LogoWithText} from "@/assets/icons";
+import {Logo, LogoWithText, MenuLine, PhoneFill} from "@/assets/icons";
 import {cn} from "tailwind-variants";
 import {useScrollStore} from "@/lib/scrollState";
+import {useBreakpoint} from "@/hooks/useBreakpoint";
 
 const Header = () => {
     const [visible, setVisible] = useState(true);
     const [inverted, setInverted] = useState(true);
     const lastScrollY = useRef(0);
+    const {isBelow} = useBreakpoint("sm");
+
+    const isBelowSm = isBelow("sm")
 
     useEffect(() => {
         const handleScroll = () => {
@@ -59,7 +63,7 @@ const Header = () => {
         >
             <div className="container h-full">
                 <div
-                    className="relative flex items-center gap-10 grid grid-cols-12 h-full"
+                    className="relative flex items-center grid-responsive h-full"
                 >
                     <span
                         className={cn(
@@ -69,10 +73,15 @@ const Header = () => {
                             visible ? "opacity-100 delay-0" : "opacity-0 delay-300"
                         )}
                     />
-                    <a href="#" className="flex grow-1 col-span-2">
+                    <Button iconOnly={isBelowSm} inverted={inverted} startIcon={<MenuLine/>} variant="secondary"
+                            className="2xl:hidden col-span-1 sm:col-span-2">
+                        Меню
+                    </Button>
+                    <a href="#"
+                       className="flex grow-1 2xl:col-span-2 xl:col-span-8 md:col-span-4 col-span-2 justify-center 2xl:justify-start">
                         {inverted ? <Logo/> : <LogoWithText className="w-[140px] h-[48px] fill-gradation-800"/>}
                     </a>
-                    <div className="flex col-span-8 justify-between">
+                    <div className="2xl:flex hidden col-span-8 justify-between">
                         <div className="flex gap-6">
                             <a className="text-l" href="#process" onClick={scrollTo("process")}>Процесс</a>
                             <a className="text-l" href="#projects" onClick={scrollTo("projects")}>Проекты</a>
@@ -82,7 +91,8 @@ const Header = () => {
                         </div>
                         <a href="tel:+74957927751">+7 (495) 792‑77‑51</a>
                     </div>
-                    <Button onClick={scrollTo("contacts")} inverted={inverted} className="col-span-2">
+                    <Button iconOnly={isBelowSm} startIcon={isBelowSm && <PhoneFill />}
+                            onClick={scrollTo("contacts")} inverted={inverted} className="col-span-1 sm:col-span-2 max-sm:ml-auto">
                         Связаться
                     </Button>
                 </div>

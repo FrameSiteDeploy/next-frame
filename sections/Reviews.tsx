@@ -42,7 +42,7 @@ const Reviews = () => {
                     <div className="absolute z-1 top-0 left-0 w-full h-24 bg-[linear-gradient(to_top,rgba(255,255,255,0)_0%,#ffffff_100%)]" />
                     <div className="absolute z-1 bottom-0 left-0 w-full h-24 bg-[linear-gradient(to_bottom,rgba(255,255,255,0)_0%,#ffffff_100%)]" />
 
-                    <div className="grid grid-cols-12 gap-10">
+                    <div className="grid-responsive">
                         <div className="divider bg-gradation-300 h-[1px] col-start-3 col-span-8 relative z-10" />
                     </div>
 

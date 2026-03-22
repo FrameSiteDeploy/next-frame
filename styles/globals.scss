@@ -22,7 +22,6 @@ html.lenis body {
 }
 
 @theme {
-  //--breakpoint-*: initial;
   --breakpoint-xs: 20rem;    // 320px
   --breakpoint-sm: 30rem;    // 480px
   --breakpoint-md: 40rem;    // 640px
@@ -52,6 +51,12 @@ html.lenis body {
     @media (min-width: 87.5rem) { // 1400px
       padding-inline: 7.5rem; // 120px
     }
+  }
+}
+
+@layer utilities {
+  .grid-responsive {
+    @apply grid gap-5 2xl:gap-10 xl:grid-cols-12 md:grid-cols-8 sm:grid-cols-6 grid-cols-4;
   }
 }
 

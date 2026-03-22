@@ -62,7 +62,7 @@ const Projects = () => {
                 id="projects"
                 inverted
             >
-                <div className="grid grid-cols-12 gap-10">
+                <div className="grid-responsive">
                     <div className="col-start-3 col-span-10">
 
                         <div className="relative" style={{height: trackHeight}}>

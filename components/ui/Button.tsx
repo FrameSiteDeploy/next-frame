@@ -1,20 +1,24 @@
-// components/ui/Button/Button.tsx
-import { FC, ButtonHTMLAttributes, ReactNode } from "react";
-import { tv, type VariantProps } from "tailwind-variants";
+import {FC, ButtonHTMLAttributes, ReactNode} from "react";
+import {tv, type VariantProps} from "tailwind-variants";
 
 const button = tv({
     base: [
         "inline-flex items-center justify-center gap-2",
-        "rounded-full border-none cursor-pointer",
+        "rounded-full cursor-pointer",
         "font-semibold font-[var(--font-manrope)] whitespace-nowrap",
         "transition-[background,color,border-color] duration-200 ease-in-out",
         "disabled:opacity-40 disabled:pointer-events-none",
+        // иконки красятся в цвет текста
+        "[&_svg]:fill-current",
     ],
     variants: {
         variant: {
-            primary:   "bg-[#2F4C42] text-[#F4D8B9] [&_svg]:text-[#F4D8B9] hover:bg-[#263d35] active:bg-[#1e3029]",
-            secondary: "bg-transparent text-[#2F4C42] border border-[#2F4C42] hover:bg-[#2F4C42]/10 active:bg-[#2F4C42]/20",
-            ghost:     "bg-transparent text-[#2F4C42] px-0 hover:opacity-80 active:opacity-60",
+            primary:
+                "bg-royal-green-800 text-sandy-orange-200 font-medium [&_svg]:text-sandy-orange-200 hover:bg-[#263d35] active:bg-[#1e3029]",
+            secondary:
+                "bg-transparent text-royal-green-800 border border-[1px] border-royal-green-800 hover:bg-royal-green-800/10 active:bg-royal-green-800/20",
+            ghost:
+                "bg-transparent text-royal-green-800 px-0 hover:opacity-80 active:opacity-60",
         },
         size: {
             l: "px-7 py-3.5",
@@ -25,37 +29,35 @@ const button = tv({
             true: "",
         },
         iconOnly: {
-            true:  "p-0",
+            true: "p-0",
             false: "",
         },
     },
     compoundVariants: [
-        // Primary + Inverted
         {
-            variant:  "primary",
+            variant: "primary",
             inverted: true,
-            class:    "bg-[#F4F5F5] text-[#2F4C42] [&_svg]:text-[#2F4C42] hover:bg-[#e8e9e9] active:bg-[#dcdcdc]",
+            class:
+                "bg-[#F4F5F5] text-royal-green-800 [&_svg]:text-royal-green-800 hover:bg-[#e8e9e9] active:bg-[#dcdcdc]",
         },
-        // Secondary + Inverted
         {
-            variant:  "secondary",
+            variant: "secondary",
             inverted: true,
-            class:    "text-[#F4F5F5] border-[#F4F5F5] hover:bg-white/10 active:bg-white/20",
+            class:
+                "text-[#F4F5F5] border-[#F4F5F5] hover:bg-white/10 active:bg-white/20",
         },
-        // Ghost + Inverted
         {
-            variant:  "ghost",
+            variant: "ghost",
             inverted: true,
-            class:    "text-[#F4F5F5] hover:opacity-80 active:opacity-60",
+            class: "text-[#F4F5F5] hover:opacity-80 active:opacity-60",
         },
-        // Icon only sizes
-        { iconOnly: true, size: "l", class: "w-[52px] h-[52px]" },
-        { iconOnly: true, size: "m", class: "w-[40px] h-[40px]" },
-        { iconOnly: true, size: "s", class: "w-[28px] h-[28px]" },
+        {iconOnly: true, size: "l", class: "w-[52px] h-[52px]"},
+        {iconOnly: true, size: "m", class: "w-[40px] h-[40px]"},
+        {iconOnly: true, size: "s", class: "w-[28px] h-[28px]"},
     ],
     defaultVariants: {
-        variant:  "primary",
-        size:     "l",
+        variant: "primary",
+        size: "l",
         inverted: false,
         iconOnly: false,
     },
@@ -64,7 +66,7 @@ const button = tv({
 export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> &
     VariantProps<typeof button> & {
     startIcon?: ReactNode;
-    endIcon?:   ReactNode;
+    endIcon?: ReactNode;
 };
 
 const Button: FC<ButtonProps> = ({
@@ -80,7 +82,7 @@ const Button: FC<ButtonProps> = ({
                                  }) => {
     return (
         <button
-            className={button({ variant, size, inverted, iconOnly, className })}
+            className={button({variant, size, inverted, iconOnly, className})}
             {...props}
         >
             {startIcon && <span className="inline-flex items-center shrink-0">{startIcon}</span>}

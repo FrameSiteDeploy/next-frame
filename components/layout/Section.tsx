@@ -22,7 +22,7 @@ const Section: FC<SectionProps> = ({children, title, subtitle, inverted, ...prop
         >
             <div className="container flex flex-col gap-12 h-full">
                 <div className={cn(
-                    "grid grid-cols-12 gap-10"
+                    "grid-responsive"
                 )}>
                     <p className={cn(
                         "col-span-2 text-l",

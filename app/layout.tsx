@@ -1,6 +1,6 @@
+import "../styles/globals.scss";
 import type {Metadata} from "next";
 import {Montserrat, Manrope} from "next/font/google";
-import "../styles/globals.scss";
 import Header from "@/components/layout/Header";
 import React from "react";
 import LenisProvider from "@/components/providers/LenisProvider";
