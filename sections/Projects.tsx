@@ -6,53 +6,38 @@ import {usePinnedScroll} from "@/hooks/usePinnedScroll";
 import {useProjectsSliderAnimation} from "@/hooks/useProjectsSliderAnimation";
 import {useGSAP} from "@gsap/react";
 import {projectsSteps} from "@/data/projectsSteps";
-
-const CONFIG = {
-    sizes: {
-        inactive: {w: 460, h: 266},
-        next: {w: 460, h: 266},
-        active: {w: 760, h: 440},
-    },
-    gap: 40,
-    animation: {
-        duration: 0.6,
-        ease: "back.out(0.7)",
-        textOutDuration: 0.4,
-        textInDuration: 0.6,
-        textInDelay: 0.15,
-        textOutEase: "power2.inOut",
-        textInX: 60,
-        textOutX: -40,
-    },
-    scroll: {
-        scrollPerStep: 600,
-    },
-} as const;
+import {useResponsiveSliderConfig} from "@/hooks/useResponsiveSliderConfig";
+import {PROJECTS_SLIDER_CONFIG} from "@/config/projectsSliderConfig";
+import {PROCESS_SLIDER_CONFIG} from "@/config/processSliderConfig";
+import {useSliderAnimation} from "@/hooks/useSliderAnimation";
+import {processSteps} from "@/data/processSteps";
+import ScrollTrigger from "gsap/ScrollTrigger";
 
 const Projects = () => {
     const slidesRef = useRef<HTMLDivElement[]>([]);
 
+    const {sizes, gap, animation, scrollPerStep, ready, breakpoint} =
+        useResponsiveSliderConfig(PROJECTS_SLIDER_CONFIG);
+
     const {init, goTo, getSlideWidthByIndex} = useProjectsSliderAnimation({
-        sizes: CONFIG.sizes,
-        gap: CONFIG.gap,
-        animation: CONFIG.animation,
+        sizes,
+        gap,
+        animation,
         slidesRef,
     });
 
     const {wrapRef, currentIndex} = usePinnedScroll({
         count: projectsSteps.length,
-        scrollPerStep: CONFIG.scroll.scrollPerStep,
+        scrollPerStep,
         onSlideChange: goTo,
     });
 
     useGSAP(() => {
-        init();
-    }, {scope: wrapRef});
-
-    const {sizes} = CONFIG;
-
-    // Общая высота трека: текст + картинка
-    const trackHeight = sizes.active.h + 80 + 16; // img + text ~80px + gap
+        if (!ready) return;
+        init(sizes, gap);
+        ScrollTrigger.refresh();
+    }, {scope: wrapRef, dependencies: [ready, breakpoint]});
+    const trackHeight = sizes.active.h + 80 + 16;
 
     return (
         <div ref={wrapRef} className="w-full">

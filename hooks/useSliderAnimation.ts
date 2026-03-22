@@ -1,4 +1,4 @@
-import {MutableRefObject, useRef} from "react";
+import {MutableRefObject, useCallback, useEffect, useRef} from "react";
 import gsap from "gsap";
 
 interface Sizes {
@@ -26,31 +26,42 @@ interface UseSliderAnimationOptions {
     textsRef: MutableRefObject<HTMLDivElement[]>;
 }
 
-export const useSliderAnimation = ({sizes, gap, animation, imagesRef, textsRef}: UseSliderAnimationOptions) => {
+const getSizes = (i: number, active: number, s: Sizes) => {
+    if (i === active) return s.active;
+    if (i === active + 1) return s.next;
+    return s.inactive;
+};
+
+const getX = (i: number, active: number, s: Sizes, g: number): number => {
+    if (i === active) return 0;
+    if (i < active) return -(active - i) * (s.inactive.w + g);
+    if (i === active + 1) return s.active.w + g;
+    return s.active.w + g + s.next.w + g + (i - active - 2) * (s.inactive.w + g);
+};
+
+export const useSliderAnimation = ({
+                                       sizes,
+                                       gap,
+                                       animation,
+                                       imagesRef,
+                                       textsRef,
+                                   }: UseSliderAnimationOptions) => {
     const prevRef = useRef(0);
+    const sizesRef = useRef(sizes);
+    const gapRef = useRef(gap);
 
-    // Предвычисленные scale-значения
-    const scaleFor = (i: number, active: number) => {
-        if (i === active) return {sx: 1, sy: 1};
-        if (i === active + 1) return {sx: sizes.next.w / sizes.active.w, sy: sizes.next.h / sizes.active.h};
-        return {sx: sizes.inactive.w / sizes.active.w, sy: sizes.inactive.h / sizes.active.h};
-    };
+    useEffect(() => {
+        sizesRef.current = sizes;
+        gapRef.current = gap;
+    }, [sizes, gap]);
 
-    const getX = (i: number, active: number): number => {
-        if (i === active) return 0;
-        if (i < active) return -(active - i) * (sizes.inactive.w + gap);
-        if (i === active + 1) return sizes.active.w + gap;
-        return sizes.active.w + gap + sizes.next.w + gap + (i - active - 2) * (sizes.inactive.w + gap);
-    };
-
-    const init = () => {
+    const init = (currentSizes: Sizes, currentGap: number) => {
         imagesRef.current.forEach((img, i) => {
-            const {sx, sy} = scaleFor(i, 0);
+            const {w, h} = getSizes(i, 0, currentSizes);
             gsap.set(img, {
-                x: getX(i, 0),
-                scaleX: sx,
-                scaleY: sy,
-                transformOrigin: "left top",
+                x: getX(i, 0, currentSizes, currentGap),
+                width: w,
+                height: h,
                 force3D: true,
             });
         });
@@ -63,17 +74,18 @@ export const useSliderAnimation = ({sizes, gap, animation, imagesRef, textsRef}:
         });
     };
 
-    const goTo = (next: number) => {
+    const goTo = useCallback((next: number) => {
+        const s = sizesRef.current;
+        const g = gapRef.current;
         const prev = prevRef.current;
         prevRef.current = next;
 
-        // Изображения — только transform, никакого reflow
         imagesRef.current.forEach((img, i) => {
-            const {sx, sy} = scaleFor(i, next);
+            const {w, h} = getSizes(i, next, s);
             gsap.to(img, {
-                x: getX(i, next),
-                scaleX: sx,
-                scaleY: sy,
+                x: getX(i, next, s, g),
+                width: w,
+                height: h,
                 duration: animation.duration,
                 ease: animation.ease,
                 overwrite: "auto",
@@ -81,17 +93,14 @@ export const useSliderAnimation = ({sizes, gap, animation, imagesRef, textsRef}:
             });
         });
 
-        // Убиваем все текстовые анимации разом
         gsap.killTweensOf(textsRef.current);
 
-        // Все посторонние — мгновенно скрыть
         textsRef.current.forEach((el, i) => {
             if (i !== prev && i !== next) {
                 gsap.set(el, {opacity: 0, x: animation.textInX});
             }
         });
 
-        // Timeline гарантирует последовательность без race condition
         const tl = gsap.timeline();
 
         tl.to(textsRef.current[prev], {
@@ -105,9 +114,9 @@ export const useSliderAnimation = ({sizes, gap, animation, imagesRef, textsRef}:
             textsRef.current[next],
             {opacity: 0, x: animation.textInX},
             {opacity: 1, x: 0, duration: animation.textInDuration, ease: animation.ease},
-            `-=${animation.textInDelay}`  // небольшой overlap вместо независимого delay
+            `-=${animation.textInDelay}`
         );
-    };
+    }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     return {init, goTo};
 };

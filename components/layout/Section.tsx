@@ -14,7 +14,7 @@ const Section: FC<SectionProps> = ({children, title, subtitle, inverted, ...prop
             {...props}
             className={cn(
                 props.className,
-                "py-24 min-h-[100vh] h-[100vh]",
+                "py-24 min-h-[996px] h-[100vh]",
                 {
                     "bg-gradation-800": inverted
                 }

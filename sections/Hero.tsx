@@ -53,10 +53,46 @@ const Hero = () => {
                         <div
                             className="flex flex-col 2xl:col-start-8 2xl:col-span-5 xl:col-start-7 xl:col-span-6 md:col-start-5 md:col-span-4 col-span-full text-white gap-[6px]">
                             <p className="text-l">
-                                {formatText("Строим загородные дома «под ключ»  в Москве и Московской области  уже 15 лет")}
+                                <span className="hidden 2xl:inline">
+                                  {formatText("Строим загородные дома «под ключ» в Москве и Московской области уже 15 лет")}
+                                </span>
+
+                                <span className="hidden xl:inline 2xl:hidden">
+                                    {formatText("Строим загородные дома «под ключ» в Москве и Московской области уже 15 лет")}
+                                </span>
+
+                                <span className="hidden md:inline xl:hidden">
+                                    {formatText("Строим загородные дома «под ключ»  в Москве и Московской области  уже 15 лет")}
+                                </span>
+
+                                <span className="hidden sm:inline md:hidden">
+                                    {formatText("Строим загородные дома «под ключ» в Москве и Московской области уже 15 лет")}
+                                </span>
+
+                                <span className="inline sm:hidden">
+                                    {formatText("Строим загородные дома «под ключ» в Москве и Московской области уже 15 лет")}
+                                </span>
                             </p>
                             <p className="text-l">
-                                {formatText("От благоустройства до внутренней отделки, с гарантией 10 лет  на несущие конструкции")}
+                                <span className="hidden 2xl:inline">
+                                    {formatText("От благоустройства до внутренней отделки, с гарантией 10 лет на несущие конструкции")}
+                                </span>
+
+                                <span className="hidden xl:inline 2xl:hidden">
+                                    {formatText("От благоустройства до внутренней отделки, с гарантией 10 лет на несущие конструкции")}
+                                </span>
+
+                                <span className="hidden md:inline xl:hidden">
+                                    {formatText("От благоустройства до внутренней отделки, с гарантией 10 лет  на несущие конструкции")}
+                                </span>
+
+                                <span className="hidden sm:inline md:hidden">
+                                    {formatText("От благоустройства до внутренней отделки, с гарантией 10 лет на несущие конструкции")}
+                                </span>
+
+                                <span className="inline sm:hidden">
+                                    {formatText("От благоустройства до внутренней отделки, с гарантией 10 лет на несущие конструкции")}
+                                </span>
                             </p>
                         </div>
                     </div>
@@ -102,7 +138,7 @@ const Hero = () => {
                 <div className="container grid-responsive">
                     <div className="col-start-3 col-span-5 flex flex-col gap-[6px]">
                         <p className="text-l font-medium text-gradation-800">Помогаем контролировать бюджет</p>
-                        <p className="text-m">Заранее обсуждаем ориентир по стоимости br (дома «под ключ» от 4 500 000
+                        <p className="text-m">Заранее обсуждаем ориентир по стоимости (дома «под ключ» от 4 500 000
                             ₽) <br/> и
                             предлагаем понятную поэтапную систему оплаты</p>
                     </div>

@@ -2,57 +2,41 @@
 
 import React, {useRef} from "react";
 import {useGSAP} from "@gsap/react";
+import ScrollTrigger from "gsap/ScrollTrigger";
 import Section from "@/components/layout/Section";
 import {processSteps} from "@/data/processSteps";
 import {usePinnedScroll} from "@/hooks/usePinnedScroll";
 import {useSliderAnimation} from "@/hooks/useSliderAnimation";
 import SliderTrack from "@/components/slider/SliderTrack";
-
-const CONFIG = {
-    sizes: {
-        inactive: {w: 160, h: 93},
-        next: {w: 460, h: 266},
-        active: {w: 760, h: 440},
-    },
-    gap: 40,
-    animation: {
-        duration: 0.6,
-        ease: "back.out(0.7)",
-        textOutDuration: 0.4,
-        textInDuration: 0.6,
-        textInDelay: 0.15,
-        textOutEase: "power2.inOut",
-        textInX: 60,
-        textOutX: -40,
-    },
-    scroll: {
-        scrollPerStep: 600,
-    },
-} as const;
+import {useResponsiveSliderConfig} from "@/hooks/useResponsiveSliderConfig";
+import {PROCESS_SLIDER_CONFIG} from "@/config/processSliderConfig";
 
 const ProcessSlider = () => {
     const imagesRef = useRef<HTMLImageElement[]>([]);
     const textsRef = useRef<HTMLDivElement[]>([]);
 
+    const {sizes, gap, animation, scrollPerStep, ready, breakpoint} =
+        useResponsiveSliderConfig(PROCESS_SLIDER_CONFIG);
+
     const {init, goTo} = useSliderAnimation({
-        sizes: CONFIG.sizes,
-        gap: CONFIG.gap,
-        animation: CONFIG.animation,
+        sizes,
+        gap,
+        animation,
         imagesRef,
         textsRef,
     });
 
     const {wrapRef} = usePinnedScroll({
         count: processSteps.length,
-        scrollPerStep: CONFIG.scroll.scrollPerStep,
+        scrollPerStep,
         onSlideChange: goTo,
     });
 
     useGSAP(() => {
-        init();
-    }, {scope: wrapRef});
-
-    const {sizes} = CONFIG;
+        if (!ready) return;
+        init(sizes, gap);
+        ScrollTrigger.refresh();
+    }, {scope: wrapRef, dependencies: [ready, breakpoint]});
 
     return (
         <div ref={wrapRef} className="w-full">
@@ -62,7 +46,7 @@ const ProcessSlider = () => {
                 id="process"
             >
                 <div className="grid-responsive">
-                    <div className="col-start-3 col-span-10">
+                    <div className="xl:col-start-3 xl:col-span-10">
 
                         <SliderTrack height={sizes.active.h}>
                             {processSteps.map((step, i) => (
@@ -77,10 +61,10 @@ const ProcessSlider = () => {
                                     fetchPriority={i === 0 ? "high" : "low"}
                                     decoding="async"
                                     className="absolute top-0 left-0 object-cover object-center"
-                                    style={{
-                                        width: sizes.active.w,
-                                        height: sizes.active.h,
-                                    }}
+                                    // style={{
+                                    //     width: sizes.active.w,
+                                    //     height: sizes.active.h,
+                                    // }}
                                 />
                             ))}
                         </SliderTrack>

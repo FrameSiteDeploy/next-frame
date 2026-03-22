@@ -1,4 +1,4 @@
-import { RefObject, useRef } from "react";
+import {RefObject, useCallback, useEffect, useRef} from "react";
 import gsap from "gsap";
 
 interface Sizes {
@@ -25,6 +25,31 @@ interface UseProjectsSliderAnimationOptions {
     slidesRef: RefObject<HTMLDivElement[]>;
 }
 
+const getSlideSize = (i: number, active: number, s: Sizes) => {
+    if (i === active) return s.active;
+    if (i === active + 1) return s.next;
+    return s.inactive;
+};
+
+const getX = (i: number, active: number, s: Sizes, g: number): number => {
+    if (i === active) return 0;
+    if (i < active) return -(active - i) * (s.inactive.w + g);
+
+    // Справа: сначала next, потом остальные inactive
+    if (i === active + 1) {
+        return s.active.w + g;
+    }
+
+    // i > active + 1
+    return (
+        s.active.w +
+        g +
+        s.next.w +
+        g +
+        (i - active - 2) * (s.inactive.w + g)
+    );
+};
+
 export const useProjectsSliderAnimation = ({
                                                sizes,
                                                gap,
@@ -32,61 +57,57 @@ export const useProjectsSliderAnimation = ({
                                                slidesRef,
                                            }: UseProjectsSliderAnimationOptions) => {
     const prevRef = useRef(0);
+    const sizesRef = useRef(sizes);
+    const gapRef = useRef(gap);
 
-    const getSlideWidthByIndex = (i: number, activeIndex: number) =>
-        i === activeIndex ? sizes.active.w : sizes.inactive.w;
+    useEffect(() => {
+        sizesRef.current = sizes;
+        gapRef.current = gap;
+    }, [sizes, gap]);
 
-    // Все неактивные (включая next) имеют одинаковую ширину 460
-    // Активный — 760. Масштаб применяется только к img внутри слайда
-    const imgScaleFor = (i: number, active: number) => {
-        if (i === active) return { sx: 1, sy: 1 };
-        return {
-            sx: sizes.inactive.w / sizes.active.w,
-            sy: sizes.inactive.h / sizes.active.h,
-        };
-    };
+    const init = (currentSizes: Sizes, currentGap: number) => {
+        const slides = slidesRef.current;
+        if (!slides) return;
 
-    const getX = (i: number, active: number): number => {
-        if (i === active) return 0;
-        if (i < active) return -(active - i) * (sizes.inactive.w + gap);
-        // После активного: каждый слайд шириной inactive.w
-        return sizes.active.w + gap + (i - active - 1) * (sizes.inactive.w + gap);
-    };
-
-    const init = () => {
-        slidesRef.current?.forEach((slide, i) => {
+        slides.forEach((slide, i) => {
+            const {w, h} = getSlideSize(i, 0, currentSizes);
             const img = slide.querySelector("img");
 
             gsap.set(slide, {
-                x: getX(i, 0),
-                transformOrigin: "left top",
+                x: getX(i, 0, currentSizes, currentGap),
+                width: w,
+                height: h,
                 force3D: true,
             });
 
             if (img) {
-                const { sx, sy } = imgScaleFor(i, 0);
                 gsap.set(img, {
-                    scaleX: sx,
-                    scaleY: sy,
+                    width: w,
+                    height: h,
+                    objectFit: "cover",
                     transformOrigin: "left top",
-                    force3D: true,
                 });
             }
         });
     };
 
-    const goTo = (next: number) => {
+    const goTo = useCallback((next: number) => {
         const slides = slidesRef.current;
         if (!slides) return;
+
+        const s = sizesRef.current;
+        const g = gapRef.current;
 
         prevRef.current = next;
 
         slides.forEach((slide, i) => {
+            const {w, h} = getSlideSize(i, next, s);
             const img = slide.querySelector("img");
-            const { sx, sy } = imgScaleFor(i, next);
 
             gsap.to(slide, {
-                x: getX(i, next),
+                x: getX(i, next, s, g),
+                width: w,
+                height: h,
                 duration: animation.duration,
                 ease: animation.ease,
                 overwrite: "auto",
@@ -95,8 +116,8 @@ export const useProjectsSliderAnimation = ({
 
             if (img) {
                 gsap.to(img, {
-                    scaleX: sx,
-                    scaleY: sy,
+                    width: w,
+                    height: h,
                     duration: animation.duration,
                     ease: animation.ease,
                     overwrite: "auto",
@@ -104,7 +125,10 @@ export const useProjectsSliderAnimation = ({
                 });
             }
         });
-    };
+    }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-    return { init, goTo, getSlideWidthByIndex };
+    const getSlideWidthByIndex = (i: number, activeIndex: number) =>
+        getSlideSize(i, activeIndex, sizes).w;
+
+    return {init, goTo, getSlideWidthByIndex};
 };
