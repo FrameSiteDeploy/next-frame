@@ -26,13 +26,16 @@ type BaseSliderConfig = {
     scrollPerStep: number;
 };
 
+const FALLBACK_BREAKPOINT: BreakpointName = "xl";
+
 export const useResponsiveSliderConfig = <T extends BaseSliderConfig>(config: T) => {
-    const { breakpoint, ready } = useBreakpoint("2xl");
+    const { breakpoint, ready } = useBreakpoint();
 
-    const sizes = config.sizesByBreakpoint[breakpoint];
-    const gap = config.gapByBreakpoint[breakpoint];
+    const bp = breakpoint ?? FALLBACK_BREAKPOINT;
 
-    const animated = breakpoint === "xl" || breakpoint === "2xl";
+    const sizes = config.sizesByBreakpoint[bp];
+    const gap = config.gapByBreakpoint[bp];
+    const animated = bp === "xl" || bp === "2xl";
 
     return {
         breakpoint,

@@ -1,4 +1,4 @@
-import {useEffect, useRef, useState} from "react";
+import {useRef, useState} from "react";
 import {useGSAP} from "@gsap/react";
 import gsap from "gsap";
 import {ScrollTrigger} from "gsap/ScrollTrigger";
@@ -17,61 +17,59 @@ export const usePinnedScroll = ({
                                     count,
                                     scrollPerStep,
                                     onSlideChange,
-                                    enabled = true
+                                    enabled = true,
                                 }: UsePinnedScrollOptions) => {
     const wrapRef = useRef<HTMLDivElement>(null);
     const currentRef = useRef(0);
     const [currentIndex, setCurrentIndex] = useState(0);
 
-    useGSAP(() => {
-        if (!enabled || !wrapRef.current) return;
+    useGSAP(
+        () => {
+            if (!enabled || !wrapRef.current) return;
+            if (count <= 1) return;
 
-        const wrap = wrapRef.current;
-        if (!wrap) return;
+            const wrap = wrapRef.current;
+            const {setIsPinned} = useScrollStore.getState();
 
-        const {setIsPinned} = useScrollStore.getState();
+            const st = ScrollTrigger.create({
+                trigger: wrap,
+                pin: wrap,
+                pinSpacing: true,
+                start: "top top",
+                end: `+=${(count - 1) * scrollPerStep}`,
+                anticipatePin: 1,
+                snap: {
+                    snapTo: 1 / (count - 1),
+                    duration: {min: 0.3, max: 0.6},
+                    ease: "power2.inOut",
+                    delay: 0.05,
+                },
+                onEnter: () => setIsPinned(true),
+                onLeave: () => setIsPinned(false),
+                onEnterBack: () => setIsPinned(true),
+                onLeaveBack: () => setIsPinned(false),
+                onUpdate: (self) => {
+                    const rawProgress = self.progress * (count - 1);
+                    const next = Math.round(rawProgress);
 
-        ScrollTrigger.create({
-            trigger: wrap,
-            pin: wrap,
-            pinSpacing: true,
-            start: "top top",
-            end: `+=${(count - 1) * scrollPerStep}`,
-            anticipatePin: 1,
-            snap: {
-                snapTo: 1 / (count - 1),
-                duration: {min: 0.3, max: 0.6},
-                ease: "power2.inOut",
-                delay: 0.05,
-            },
-            onEnter: () => {
-                setIsPinned(true)
-                // console.log('onEnter ispinned true')
-            },
-            onLeave: () => {
-                setIsPinned(false)
-                // console.log('onLeave ispinned false')
-            },
-            onEnterBack: () => {
-                setIsPinned(true)
-                // console.log('onEnterBack ispinned true')
-            },
-            onLeaveBack: () => {
-                setIsPinned(false)
-                // console.log('onLeaveBack ispinned false')
-            },
-            onUpdate: (self) => {
-                const rawProgress = self.progress * (count - 1);
-                const next = Math.round(rawProgress);
+                    if (next !== currentRef.current) {
+                        currentRef.current = next;
+                        setCurrentIndex(next);
+                        onSlideChange(next);
+                    }
+                },
+            });
+            return () => {
+                st.kill();
+            };
+        },
+        {
+            scope: wrapRef,
+            // enabled не включаем в зависимости
+            dependencies: [count, scrollPerStep, enabled],
+        }
+    );
 
-                if (next !== currentRef.current) {
-                    currentRef.current = next;
-                    setCurrentIndex(next);
-                    onSlideChange(next);
-                }
-            },
-        });
-    }, {scope: wrapRef});
 
     return {wrapRef, currentIndex};
 };

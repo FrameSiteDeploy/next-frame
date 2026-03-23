@@ -6,7 +6,7 @@ import {
 } from "@/utils/responsiveText";
 
 export const useResponsiveText = (config: ResponsiveTextConfig) => {
-    const {breakpoint} = useBreakpoint("2xl"); // как у тебя в других местах
+    const {breakpoint} = useBreakpoint();
 
     const filled = createResponsiveText(config);
 

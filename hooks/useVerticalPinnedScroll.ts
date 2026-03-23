@@ -3,7 +3,7 @@ import {useRef} from "react";
 import {useGSAP} from "@gsap/react";
 import gsap from "gsap";
 import {ScrollTrigger} from "gsap/ScrollTrigger";
-import {useScrollStore} from "@/lib/scrollState";
+import {useScrollStore} from "@/lib/scrollState";;
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -11,23 +11,26 @@ interface UseVerticalPinnedScrollOptions {
     count: number;
     scrollPerStep: number;
     onIndexChange: (next: number) => void;
+    enabled?: boolean;
 }
 
 export const useVerticalPinnedScroll = ({
                                             count,
                                             scrollPerStep,
                                             onIndexChange,
+                                            enabled
                                         }: UseVerticalPinnedScrollOptions) => {
     const wrapRef = useRef<HTMLDivElement>(null);
     const currentRef = useRef(0);
 
     useGSAP(() => {
+        if (!enabled || !wrapRef.current) return;
         const wrap = wrapRef.current;
         if (!wrap) return;
 
         const {setIsPinned} = useScrollStore.getState();
 
-        ScrollTrigger.create({
+        const st = ScrollTrigger.create({
             trigger: wrap,
             pin: wrap,
             pinSpacing: true,
@@ -54,7 +57,15 @@ export const useVerticalPinnedScroll = ({
                 }
             },
         });
-    }, {scope: wrapRef});
+
+        return () => {
+            st.kill();
+        };
+
+    }, {
+        scope: wrapRef,
+        dependencies: [enabled]
+    });
 
     return wrapRef;
 };

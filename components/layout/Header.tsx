@@ -13,7 +13,7 @@ const Header = () => {
     const [inverted, setInverted] = useState(true);
     const [isLogoHovered, setIsLogoHovered] = useState(false);
     const lastScrollY = useRef(0);
-    const {isBelow} = useBreakpoint("sm");
+    const {isBelow} = useBreakpoint();
 
     const isBelowSm = isBelow("sm")
 
@@ -60,7 +60,7 @@ const Header = () => {
         >
             <div className="container h-full">
                 <div
-                    className="relative flex items-center grid-responsive h-full"
+                    className="relative items-center grid-responsive h-full"
                 >
                     <span
                         className={cn(
@@ -76,7 +76,7 @@ const Header = () => {
                     </Button>
                     <a
                         href="#"
-                        className="flex grow-1 2xl:col-span-2 xl:col-span-8 md:col-span-4 col-span-2 justify-center 2xl:justify-start"
+                        className="flex xl:grow-0 grow-1 2xl:col-span-2 xl:col-span-8 md:col-span-4 col-span-2 justify-center 2xl:justify-start"
                         onMouseEnter={() => setIsLogoHovered(true)}
                         onMouseLeave={() => setIsLogoHovered(false)}
                     >

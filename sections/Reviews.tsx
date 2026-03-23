@@ -6,6 +6,7 @@ import { useVerticalPinnedScroll } from "@/hooks/useVerticalPinnedScroll";
 import gsap from "gsap";
 import Review from "@/components/reviews/Review";
 import { reviews } from "@/data/reviews";
+import {useBreakpoint} from "@/hooks/useBreakpoint";
 
 const CARD_HEIGHT = 328;
 const GAP = 48;
@@ -14,6 +15,7 @@ const STEP = CARD_HEIGHT + GAP;
 const Reviews = () => {
     const sliderRef = useRef<HTMLDivElement>(null);
     const [currentIndex, setCurrentIndex] = useState(0);
+    const {ready: bpReady} = useBreakpoint();
 
     const goTo = (next: number) => {
         setCurrentIndex(next);
@@ -29,6 +31,7 @@ const Reviews = () => {
         count: reviews.length,
         scrollPerStep: 1000,
         onIndexChange: goTo,
+        enabled: bpReady
     });
 
     return (

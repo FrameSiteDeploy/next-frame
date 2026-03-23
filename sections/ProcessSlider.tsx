@@ -1,8 +1,7 @@
 "use client";
 
-import React, {useRef} from "react";
+import React, {useEffect, useRef} from "react";
 import {useGSAP} from "@gsap/react";
-import ScrollTrigger from "gsap/ScrollTrigger";
 import Section from "@/components/layout/Section";
 import {processSteps} from "@/data/processSteps";
 import {usePinnedScroll} from "@/hooks/usePinnedScroll";
@@ -21,8 +20,8 @@ const ProcessSlider = () => {
     const {sizes, gap, animation, scrollPerStep, ready, breakpoint} =
         useResponsiveSliderConfig(PROCESS_SLIDER_CONFIG);
 
-    const {isBelow} = useBreakpoint("md");
-    const isMobile = isBelow("xl");
+    const {isBelow, ready: bpReady} = useBreakpoint();
+    const isMobile = bpReady ? isBelow("xl") : false;
 
     const {init, goTo} = useSliderAnimation({
         sizes,
@@ -33,13 +32,12 @@ const ProcessSlider = () => {
     });
 
     const {wrapRef, currentIndex} = usePinnedScroll({
-        count: isMobile ? 0 : processSteps.length,
+        count: processSteps.length,
         scrollPerStep,
         onSlideChange: (i) => {
-            if (isMobile) return;
             goTo(i);
         },
-        enabled: !isMobile,
+        enabled: !isMobile && bpReady,
     });
 
     const isLastStep = !isMobile && currentIndex === processSteps.length - 1;
@@ -47,7 +45,6 @@ const ProcessSlider = () => {
     useGSAP(() => {
         if (!ready || isMobile) return;
         init(sizes, gap);
-        ScrollTrigger.refresh();
     }, {scope: wrapRef, dependencies: [ready, breakpoint, isMobile]});
 
     return (
@@ -162,7 +159,7 @@ const ProcessSlider = () => {
                                         alt={step.title}
                                         loading="lazy"
                                         decoding="async"
-                                        className="w-full md:h-[348px] sm:h-[258px] object-cover object-center"
+                                        className="w-full md:h-[348px] sm:h-[258px] h-[169px] object-cover object-center"
                                     />
                                     <div className="flex flex-col gap-3">
                                         <h3>{step.title}</h3>
@@ -180,7 +177,7 @@ const ProcessSlider = () => {
 
                             <Button
                                 onClick={scrollTo("contacts")}
-                                className="mt-6 w-full bg-royal-green-800"
+                                className="xl:mt-0 sm:mt-6 w-full bg-royal-green-800"
                             >
                                 Связаться
                             </Button>
