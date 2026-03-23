@@ -11,6 +11,7 @@ import {scrollTo} from "@/utils/scrollTo";
 const Header = () => {
     const [visible, setVisible] = useState(true);
     const [inverted, setInverted] = useState(true);
+    const [isLogoHovered, setIsLogoHovered] = useState(false);
     const lastScrollY = useRef(0);
     const {isBelow} = useBreakpoint("sm");
 
@@ -73,9 +74,34 @@ const Header = () => {
                             className="2xl:hidden col-span-1 sm:col-span-2">
                         Меню
                     </Button>
-                    <a href="#"
-                       className="flex grow-1 2xl:col-span-2 xl:col-span-8 md:col-span-4 col-span-2 justify-center 2xl:justify-start">
-                        {inverted ? <Logo/> : <LogoWithText className="w-[140px] h-[48px] fill-gradation-800"/>}
+                    <a
+                        href="#"
+                        className="flex grow-1 2xl:col-span-2 xl:col-span-8 md:col-span-4 col-span-2 justify-center 2xl:justify-start"
+                        onMouseEnter={() => setIsLogoHovered(true)}
+                        onMouseLeave={() => setIsLogoHovered(false)}
+                    >
+                        {inverted ? (
+                            <div className="relative w-[140px] h-[48px]">
+                                <div
+                                    className={cn(
+                                        "absolute inset-0 flex justify-center 2xl:justify-start transition-opacity duration-300",
+                                        isLogoHovered ? "opacity-0" : "opacity-100"
+                                    )}
+                                >
+                                    <Logo/>
+                                </div>
+                                <div
+                                    className={cn(
+                                        "absolute inset-0 flex justify-center 2xl:justify-start transition-opacity duration-300",
+                                        isLogoHovered ? "opacity-100" : "opacity-0"
+                                    )}
+                                >
+                                    <LogoWithText className="w-[140px] h-[48px] fill-gradation-100"/>
+                                </div>
+                            </div>
+                        ) : (
+                            <LogoWithText className="w-[140px] h-[48px] fill-gradation-800"/>
+                        )}
                     </a>
                     <div className="2xl:flex hidden col-span-8 justify-between">
                         <div className="flex gap-6">
@@ -87,8 +113,9 @@ const Header = () => {
                         </div>
                         <a href="tel:+74957927751">+7 (495) 792‑77‑51</a>
                     </div>
-                    <Button iconOnly={isBelowSm} startIcon={isBelowSm && <PhoneFill />}
-                            onClick={scrollTo("contacts")} inverted={inverted} className="col-span-1 sm:col-span-2 max-sm:ml-auto">
+                    <Button iconOnly={isBelowSm} startIcon={isBelowSm && <PhoneFill/>}
+                            onClick={scrollTo("contacts")} inverted={inverted}
+                            className="col-span-1 sm:col-span-2 max-sm:ml-auto">
                         Связаться
                     </Button>
                 </div>

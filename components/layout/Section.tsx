@@ -14,18 +14,18 @@ const Section: FC<SectionProps> = ({children, title, subtitle, inverted, ...prop
             {...props}
             className={cn(
                 props.className,
-                "py-24 min-h-[996px] h-[100vh]",
+                "2xl:py-24 sm:py-12 py-6 min-h-[996px] xl:h-[100vh]",
                 {
                     "bg-gradation-800": inverted
                 }
             )}
         >
-            <div className="container flex flex-col gap-12 h-full">
+            <div className="container flex flex-col sm:gap-12 gap-6 h-full">
                 <div className={cn(
-                    "grid-responsive"
+                    "grid-responsive xl:gap-10 gap-3"
                 )}>
                     <p className={cn(
-                        "col-span-2 text-l",
+                        "xl:col-span-2 col-span-full text-l",
                         {
                             "text-gradation-300": inverted,
                             "text-gradation-600": !inverted,
@@ -34,7 +34,7 @@ const Section: FC<SectionProps> = ({children, title, subtitle, inverted, ...prop
                     )}>
                         {formatText(subtitle)}
                     </p>
-                    <div className="col-span-10 flex flex-col gap-12">
+                    <div className="xl:col-span-10 col-span-full flex flex-col gap-12">
                         <h2 className={cn({
                             "text-gradation-100": inverted,
                             "text-gradation-800": !inverted

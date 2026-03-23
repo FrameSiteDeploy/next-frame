@@ -54,7 +54,7 @@ html.lenis body {
   }
 }
 
-@layer utilities {
+@layer components {
   .grid-responsive {
     @apply grid gap-5 2xl:gap-10 xl:grid-cols-12 md:grid-cols-8 sm:grid-cols-6 grid-cols-4;
   }

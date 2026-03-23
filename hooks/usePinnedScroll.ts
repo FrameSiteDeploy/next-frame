@@ -10,18 +10,22 @@ interface UsePinnedScrollOptions {
     count: number;
     scrollPerStep: number;
     onSlideChange: (next: number) => void;
+    enabled?: boolean;
 }
 
 export const usePinnedScroll = ({
                                     count,
                                     scrollPerStep,
                                     onSlideChange,
+                                    enabled = true
                                 }: UsePinnedScrollOptions) => {
     const wrapRef = useRef<HTMLDivElement>(null);
     const currentRef = useRef(0);
     const [currentIndex, setCurrentIndex] = useState(0);
 
     useGSAP(() => {
+        if (!enabled || !wrapRef.current) return;
+
         const wrap = wrapRef.current;
         if (!wrap) return;
 
