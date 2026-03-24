@@ -17,10 +17,10 @@ export default function LenisProvider({children}: {children: React.ReactNode}) {
         const lenis = new Lenis({
             duration: 1.2,
             easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-            touchMultiplier: 2,
+            touchMultiplier: 1.5,
             syncTouch: true,
+            syncTouchLerp: 0.075,
         });
-
 
         setLenis(lenis);
 

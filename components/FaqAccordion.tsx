@@ -9,7 +9,7 @@ const FaqAccordion = () => {
         <Accordion.Root
             type="single"
             defaultValue="item-1"
-            className="col-start-3 col-span-8 flex flex-col gap-6 h-165"
+            className="xl:col-start-3 xl:col-span-8 col-span-full flex flex-col gap-4 xl:h-165"
         >
             {faqs.map((item) => (
                 <Accordion.Item
@@ -17,11 +17,12 @@ const FaqAccordion = () => {
                     value={`item-${item.id}`}
                     className="relative group"
                 >
-                    <div className="flex flex-col gap-6">
+                    <div className="flex flex-col gap-4">
                         <div className="divider h-[1px] w-full bg-gradation-300"/>
 
                         <Accordion.Trigger
-                            className="flex items-center justify-between text-gradation-800 text-left w-full cursor-pointer">
+                            className="flex items-center justify-between text-gradation-800 text-left w-full cursor-pointer"
+                        >
                             <h3>{item.question}</h3>
 
                             <span className="shrink-0 ml-4 flex items-center">
@@ -32,8 +33,21 @@ const FaqAccordion = () => {
                     </div>
 
                     <Accordion.Content
-                        className="overflow-hidden data-[state=open]:animate-accordion-down data-[state=closed]:animate-accordion-up h-[230px] flex flex-col">
-                        <div className="self-end mt-auto text-l text-gradation-600 data-[state=open]:animate-fade-in data-[state=closed]:animate-fade-out">
+                        className={`
+                            overflow-hidden
+                            data-[state=open]:animate-accordion-down
+                            data-[state=closed]:animate-accordion-up
+                            flex flex-col
+                            xl:h-[230px]
+                        `}
+                    >
+                        <div
+                            className="
+                                text-l text-gradation-600
+                                xl:self-end xl:mt-auto xl:pt-0
+                                pt-3
+                            "
+                        >
                             <p>{item.answer}</p>
                         </div>
                     </Accordion.Content>

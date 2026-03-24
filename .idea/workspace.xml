@@ -6,9 +6,15 @@
   <component name="ChangeListManager">
     <list default="true" id="710eadcd-9b48-4f6e-85f6-02c8c6d3ec2c" name="Changes" comment=".">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/ContactForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/ContactForm.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/FaqAccordion.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/FaqAccordion.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/ServicesAccordion.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/ServicesAccordion.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/layout/Footer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/layout/Footer.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/layout/Section.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/layout/Section.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/components/providers/LenisProvider.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/providers/LenisProvider.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hooks/usePinnedScroll.ts" beforeDir="false" afterPath="$PROJECT_DIR$/hooks/usePinnedScroll.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hooks/useVerticalPinnedScroll.ts" beforeDir="false" afterPath="$PROJECT_DIR$/hooks/useVerticalPinnedScroll.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/services.ts" beforeDir="false" afterPath="$PROJECT_DIR$/data/services.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sections/Reviews.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/sections/Reviews.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sections/Services.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/sections/Services.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -143,7 +149,8 @@
       <workItem from="1774256448847" duration="7467000" />
       <workItem from="1774279373917" duration="10359000" />
       <workItem from="1774294173474" duration="1000" />
-      <workItem from="1774343779489" duration="1174000" />
+      <workItem from="1774343779489" duration="1253000" />
+      <workItem from="1774374251463" duration="4402000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <option name="closed" value="true" />

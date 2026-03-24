@@ -12,7 +12,7 @@ const Services = () => {
             inverted
         >
             <div className="grid-responsive">
-                <ServicesAccordion />
+                <ServicesAccordion/>
             </div>
         </Section>
     );

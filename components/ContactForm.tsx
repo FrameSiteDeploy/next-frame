@@ -254,13 +254,13 @@ const ContactForm = () => {
     };
 
     return (
-        <div className="col-start-8 col-span-5 flex flex-col justify-between">
+        <div className="xl:col-start-8 xl:col-span-5 col-span-full md:gap-12 gap-6 flex flex-col justify-between h-full">
             <div className="flex flex-col gap-6">
                 <div className="flex flex-col gap-3">
                     <p className="text-m text-gradation-200">~60 минут на обработку заявки</p>
                     <h2 className="text-gradation-100">Обратная связь</h2>
                 </div>
-                <div className="flex flex-col gap-4">
+                <div className="flex flex-col md:gap-4 gap-3">
                     <div className="flex flex-col gap-1.5">
                         <input
                             className={inputClass(!!errors.name)}
@@ -302,7 +302,7 @@ const ContactForm = () => {
             <div className="flex flex-col gap-4">
                 <Button
                     inverted
-                    className="self-start"
+                    className="xl:self-start"
                     onClick={handleSubmit}
                     disabled={status === 'loading' || status === 'done'}
                 >
@@ -316,7 +316,7 @@ const ContactForm = () => {
                     <p className="text-m text-red-400">Не удалось отправить заявку. Попробуйте ещё раз.</p>
                 )}
                 <p className="text-m text-gradation-300">
-                    Нажимая на кнопку "Отправить заявку", Вы соглашаетесь на обработку персональных данных
+                    Нажимая на кнопку &#34;Отправить заявку&#34;, Вы соглашаетесь на обработку персональных данных
                 </p>
             </div>
         </div>
