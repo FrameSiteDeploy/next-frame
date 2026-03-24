@@ -37,7 +37,7 @@ export const usePinnedScroll = ({
                 pinSpacing: true,
                 start: "top top",
                 end: `+=${(count - 1) * scrollPerStep}`,
-                anticipatePin: 1,
+                // anticipatePin: 1,
                 snap: {
                     snapTo: 1 / (count - 1),
                     duration: {min: 0.3, max: 0.6},
