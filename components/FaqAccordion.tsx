@@ -8,6 +8,7 @@ const FaqAccordion = () => {
     return (
         <Accordion.Root
             type="single"
+            collapsible
             defaultValue="item-1"
             className="xl:col-start-3 xl:col-span-8 col-span-full flex flex-col gap-4 xl:h-165"
         >
