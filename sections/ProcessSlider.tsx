@@ -27,7 +27,10 @@ const ProcessSlider = () => {
     const isMobile = bpReady && shortReady
         ? isBelow("xl") || (isAtLeast("xl") && isShortScreen)
         : false;
-    // const isMobile = bpReady ? isBelow("xl") : false;
+
+    const isShortDesktop = bpReady && shortReady
+        ? isAtLeast("xl") && isShortScreen
+        : false;
 
     const {init, goTo} = useSliderAnimation({
         sizes,
@@ -143,40 +146,49 @@ const ProcessSlider = () => {
                         <div className="col-span-full flex flex-col gap-6">
                             {processSteps.map((step) => (
                                 <div key={step.id} className="flex flex-col gap-6">
-                                    {/* divider сверху */}
                                     <div className="h-px bg-gradation-300"/>
 
-                                    {/* текст */}
-                                    <div className="flex flex-col gap-3">
-                                        <h3>{step.step}</h3>
-                                        <div className="flex items-center gap-3">
-                                            <p className="text-l text-royal-green-800">
-                                                {step.price}
-                                            </p>
-                                            <div className="h-[12px] bg-gradation-300 w-[1px]"></div>
-                                            <p className="text-l text-royal-green-600">
-                                                {step.duration}
-                                            </p>
+                                    <div
+                                        className={
+                                            isShortDesktop
+                                                ? "xl:grid xl:grid-cols-2 xl:gap-x-10 flex flex-col gap-6"
+                                                : "flex flex-col gap-6"
+                                        }
+                                    >
+                                        {/* Текст */}
+                                        <div className={`flex flex-col ${isShortDesktop ? "xl:justify-between" : "gap-3"}`}>
+                                            {/* Группа 1: номер шага, цена, срок */}
+                                            <div className="flex flex-col gap-3">
+                                                <h3>{step.step}</h3>
+                                                <div className="flex items-center gap-3">
+                                                    <p className="text-l text-royal-green-800">{step.price}</p>
+                                                    <div className="h-[12px] bg-gradation-300 w-[1px]"/>
+                                                    <p className="text-l text-royal-green-600">{step.duration}</p>
+                                                </div>
+                                            </div>
+
+                                            {/* Группа 2: название, описание, промо */}
+                                            <div className="flex flex-col gap-3">
+                                                <h3>{step.title}</h3>
+                                                <p className="text-l text-gradation-600">{step.description}</p>
+                                                {step.promo && (
+                                                    <p className="text-l text-royal-green-800">{step.promo}</p>
+                                                )}
+                                            </div>
                                         </div>
-                                    </div>
-                                    {/* картинка */}
-                                    <img
-                                        src={step.image}
-                                        alt={step.title}
-                                        loading="lazy"
-                                        decoding="async"
-                                        className="w-full md:h-[348px] sm:h-[258px] h-[169px] object-cover object-center"
-                                    />
-                                    <div className="flex flex-col gap-3">
-                                        <h3>{step.title}</h3>
-                                        <p className="text-l text-gradation-600">
-                                            {step.description}
-                                        </p>
-                                        {step.promo && (
-                                            <p className="text-l text-royal-green-800">
-                                                {step.promo}
-                                            </p>
-                                        )}
+
+                                        {/* Картинка */}
+                                        <img
+                                            src={step.image}
+                                            alt={step.title}
+                                            loading="lazy"
+                                            decoding="async"
+                                            className={`w-full object-cover object-center ${
+                                                isShortDesktop
+                                                    ? "xl:h-full xl:min-h-[200px]"
+                                                    : "md:h-[348px] sm:h-[258px] h-[169px]"
+                                            }`}
+                                        />
                                     </div>
                                 </div>
                             ))}

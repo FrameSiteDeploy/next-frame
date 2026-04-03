@@ -25,6 +25,10 @@ const Projects = () => {
         ? isBelow("xl") || (isAtLeast("xl") && isShortScreen)
         : false;
 
+    const isShortDesktop = bpReady && shortReady
+        ? isAtLeast("xl") && isShortScreen
+        : false;
+
     const {init, goTo, getSlideWidthByIndex} = useProjectsSliderAnimation({
         sizes,
         gap,
@@ -116,13 +120,15 @@ const Projects = () => {
 
                     {/* MOBILE: md и ниже — простая колонка */}
                     {isMobile && (
-                        <div className="col-span-full flex flex-col gap-6">
+                        <div
+                            className={`col-span-full flex flex-col gap-6 ${
+                                isShortDesktop ? "xl:grid xl:grid-cols-2 xl:gap-x-10" : ""
+                            }`}
+                        >
                             {projectsSteps.map((step) => (
                                 <div key={step.id} className="flex flex-col gap-4">
-                                    {/* divider */}
                                     <div className="h-px bg-gradation-300"/>
 
-                                    {/* текст */}
                                     <div className="flex flex-col gap-3">
                                         <h3 className="text-gradation-100">
                                             {step.title}
@@ -131,24 +137,24 @@ const Projects = () => {
                                             {step.duration && (
                                                 <>
                                                     <p className="text-l">{step.duration}</p>
-                                                    <div className="h-[12px] bg-gradation-300 w-[1px]"></div>
+                                                    <div className="h-[12px] bg-gradation-300 w-[1px]"/>
                                                 </>
                                             )}
-                                            <p className="text-l">
-                                                {step.description}
-                                            </p>
+                                            <p className="text-l">{step.description}</p>
                                         </div>
                                     </div>
 
-                                    {/* картинка */}
                                     <img
                                         src={step.image}
                                         alt={step.title}
                                         loading="lazy"
                                         decoding="async"
-                                        className="w-full md:h-[348px] sm:h-[258px] h-[169px] object-cover object-center"
+                                        className={`w-full object-cover object-center ${
+                                            isShortDesktop
+                                                ? "xl:h-[348px] mt-auto"
+                                                : "md:h-[348px] sm:h-[258px] h-[169px]"
+                                        }`}
                                     />
-
                                 </div>
                             ))}
                         </div>
