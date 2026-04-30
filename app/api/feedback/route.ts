@@ -1,5 +1,12 @@
 // app/api/feedback/route.ts
 import {NextRequest, NextResponse} from "next/server";
+import {
+    buildFeedbackTelegramMessage,
+    getFeedbackErrorMessage,
+    normalizeFeedbackFields,
+    type FeedbackFields,
+    validateFeedbackFields,
+} from "@/lib/feedbackValidation";
 
 // ─── Простой rate-limit в памяти (per IP) ────────────────────────────────────
 const rateMap = new Map<string, { count: number; ts: number }>();
@@ -20,44 +27,20 @@ function isRateLimited(ip: string): boolean {
     return false;
 }
 
-// ─── Валидация ─────────────────────────────────────────────────────────────────
-function validate(data: Record<string, unknown>): string | null {
-    const {name, phone, email} = data;
-
-    if (!name || typeof name !== "string" || !name.trim())
-        return "Укажите имя";
-    if (!phone || typeof phone !== "string" || phone.replace(/\D/g, "").length < 10)
-        return "Некорректный номер телефона";
-    if (!email || typeof email !== "string" || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))
-        return "Некорректный адрес почты";
-
-    return null;
-}
-
 // ─── Telegram уведомление ──────────────────────────────────────────────────────
-async function sendToTelegram(name: string, phone: string, email: string) {
+async function sendToTelegram(fields: FeedbackFields) {
     const token = process.env.TELEGRAM_BOT_TOKEN;
     const chatId = process.env.TELEGRAM_CHAT_ID;
 
     if (!token || !chatId) return;
-
-    const text = [
-        `📩 *Новая заявка*`,
-        ``,
-        `👤 *Имя:* ${name}`,
-        `📞 *Телефон:* ${phone}`,
-        `📧 *Почта:* ${email}`,
-        ``,
-        `🕐 ${new Date().toLocaleString("ru-RU", {timeZone: "Europe/Moscow"})}`,
-    ].join("\n");
 
     await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
         method: "POST",
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify({
             chat_id: chatId,
-            text,
-            parse_mode: "Markdown",
+            text: buildFeedbackTelegramMessage(fields),
+            parse_mode: "HTML",
         }),
     });
 }
@@ -84,20 +67,24 @@ export async function POST(req: NextRequest) {
     }
 
     // Валидация
-    const validationError = validate(body);
+    const fields: FeedbackFields = {
+        name: typeof body.name === "string" ? body.name : "",
+        phone: typeof body.phone === "string" ? body.phone : "",
+        email: typeof body.email === "string" ? body.email : "",
+    };
+
+    const validationError = getFeedbackErrorMessage(
+        validateFeedbackFields(fields)
+    );
     if (validationError) {
         return NextResponse.json({error: validationError}, {status: 422});
     }
 
-    const {name, phone, email} = body as {
-        name: string;
-        phone: string;
-        email: string;
-    };
+    const normalizedFields = normalizeFeedbackFields(fields);
 
     // Отправка уведомления
     try {
-        await sendToTelegram(name.trim(), phone.trim(), email.trim());
+        await sendToTelegram(normalizedFields);
     } catch (err) {
         console.error("Telegram send error:", err);
         // Не возвращаем ошибку клиенту — логируем и продолжаем

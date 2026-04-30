@@ -1,4 +1,4 @@
-import "../styles/globals.scss";
+import "../styles/globals.css";
 import type {Metadata} from "next";
 import {Montserrat, Manrope} from "next/font/google";
 import Header from "@/components/layout/Header";
@@ -31,10 +31,10 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <html lang="en">
+        <html lang="ru">
         <body
             className={`${montserrat.variable} ${manrope.variable}`}>
-        <div className="wrapper flex flex-col min-h-[100v] overflow-x-hidden">
+        <div className="wrapper flex flex-col min-h-screen overflow-x-hidden">
             <Header/>
             <LenisProvider>
                 {children}

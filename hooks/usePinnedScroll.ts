@@ -65,8 +65,7 @@ export const usePinnedScroll = ({
         },
         {
             scope: wrapRef,
-            // enabled не включаем в зависимости
-            dependencies: [count, scrollPerStep, enabled],
+            dependencies: [count, scrollPerStep, onSlideChange, enabled],
         }
     );
 

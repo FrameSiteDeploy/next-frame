@@ -3,15 +3,8 @@
 import 'react-international-phone/style.css';
 import Button from '@/components/ui/Button';
 import { useState } from 'react';
+import {normalizeFeedbackFields, type FeedbackErrors, validateFeedbackFields} from '@/lib/feedbackValidation';
 import PhoneInputField from './ui/PhoneInputField';
-
-// ─── Типы ─────────────────────────────────────────────────────────────────────
-
-interface FormErrors {
-    name?: string;
-    phone?: string;
-    email?: string;
-}
 
 // ─── Классы инпута ────────────────────────────────────────────────────────────
 
@@ -21,34 +14,27 @@ const inputClass = (hasError: boolean) =>
         : 'border-transparent focus:border-gradation-500'
     }`;
 
-// ─── Валидация ─────────────────────────────────────────────────────────────────
-
-const validate = (name: string, phone: string, email: string): FormErrors => {
-    const errors: FormErrors = {};
-    if (!name.trim()) errors.name = 'Укажите имя';
-    if (!phone || phone.replace(/\D/g, '').length < 11) {
-        errors.phone = 'Введите корректный номер телефона';
-    }
-    if (!email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))
-        errors.email = 'Введите корректный адрес почты';
-    return errors;
-};
-
 // ─── Форма ─────────────────────────────────────────────────────────────────────
 
 const ContactForm = () => {
     const [name, setName] = useState('');
     const [phone, setPhone] = useState('');
     const [email, setEmail] = useState('');
-    const [errors, setErrors] = useState<FormErrors>({});
+    const [errors, setErrors] = useState<FeedbackErrors>({});
     const [status, setStatus] = useState<'idle' | 'loading' | 'done' | 'error'>('idle');
 
     const handleSubmit = async () => {
-        const validationErrors = validate(name, phone, email);
+        const normalizedFields = normalizeFeedbackFields({name, phone, email});
+        const validationErrors = validateFeedbackFields(normalizedFields);
+
         if (Object.keys(validationErrors).length > 0) {
             setErrors(validationErrors);
             return;
         }
+
+        setName(normalizedFields.name);
+        setPhone(normalizedFields.phone);
+        setEmail(normalizedFields.email);
         setErrors({});
         setStatus('loading');
 
@@ -56,7 +42,7 @@ const ContactForm = () => {
             const res = await fetch('/api/feedback', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ name, phone, email }),
+                body: JSON.stringify(normalizedFields),
             });
             setStatus(res.ok ? 'done' : 'error');
         } catch {
