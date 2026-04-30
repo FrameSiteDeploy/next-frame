@@ -116,7 +116,7 @@ export const useSliderAnimation = ({
             {opacity: 1, x: 0, duration: animation.textInDuration, ease: animation.ease},
             `-=${animation.textInDelay}`
         );
-    }, []); // eslint-disable-line react-hooks/exhaustive-deps
+    }, [animation, imagesRef, textsRef]);
 
     return {init, goTo};
 };

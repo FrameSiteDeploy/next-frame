@@ -8,7 +8,6 @@ import {useGSAP} from "@gsap/react";
 import {projectsSteps} from "@/data/projectsSteps";
 import {useResponsiveSliderConfig} from "@/hooks/useResponsiveSliderConfig";
 import {PROJECTS_SLIDER_CONFIG} from "@/config/projectsSliderConfig";
-import ScrollTrigger from "gsap/ScrollTrigger";
 import {useBreakpoint} from "@/hooks/useBreakpoint";
 import {useShortScreen} from "@/hooks/useShortScreen";
 

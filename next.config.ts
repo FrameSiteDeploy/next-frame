@@ -4,6 +4,7 @@ import "@/lib/env";
 
 const nextConfig: NextConfig = {
     turbopack: {
+        root: process.cwd(),
         rules: {
             "*.svg": {
                 loaders: ["@svgr/webpack"],
@@ -11,6 +12,7 @@ const nextConfig: NextConfig = {
             },
         },
     },
+    outputFileTracingRoot: process.cwd(),
 
     // Webpack (next build)
     webpack(config) {

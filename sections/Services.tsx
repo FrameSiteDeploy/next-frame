@@ -1,6 +1,5 @@
 import React from "react";
 import Section from "@/components/layout/Section";
-import Image from "next/image";
 import ServicesAccordion from "@/components/ServicesAccordion";
 
 const Services = () => {

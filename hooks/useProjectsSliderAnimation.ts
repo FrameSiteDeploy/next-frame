@@ -125,7 +125,7 @@ export const useProjectsSliderAnimation = ({
                 });
             }
         });
-    }, []); // eslint-disable-line react-hooks/exhaustive-deps
+    }, [animation, slidesRef]);
 
     const getSlideWidthByIndex = (i: number, activeIndex: number) =>
         getSlideSize(i, activeIndex, sizes).w;

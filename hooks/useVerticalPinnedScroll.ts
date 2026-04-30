@@ -5,8 +5,6 @@ import gsap from "gsap";
 import {ScrollTrigger} from "gsap/ScrollTrigger";
 import {useScrollStore} from "@/lib/scrollState";
 
-;
-
 gsap.registerPlugin(ScrollTrigger);
 
 interface UseVerticalPinnedScrollOptions {
@@ -27,6 +25,8 @@ export const useVerticalPinnedScroll = ({
 
     useGSAP(() => {
         if (!enabled || !wrapRef.current) return;
+        if (count <= 1) return;
+
         const wrap = wrapRef.current;
         if (!wrap) return;
 
@@ -66,7 +66,7 @@ export const useVerticalPinnedScroll = ({
 
     }, {
         scope: wrapRef,
-        dependencies: [enabled]
+        dependencies: [count, scrollPerStep, onIndexChange, enabled]
     });
 
     return wrapRef;

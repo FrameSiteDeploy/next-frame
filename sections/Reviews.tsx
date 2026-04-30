@@ -1,6 +1,6 @@
 "use client";
 
-import {useLayoutEffect, useRef, useState} from "react";
+import {useCallback, useLayoutEffect, useRef, useState} from "react";
 import Section from "@/components/layout/Section";
 import {useVerticalPinnedScroll} from "@/hooks/useVerticalPinnedScroll";
 import gsap from "gsap";
@@ -24,16 +24,21 @@ const Reviews = () => {
 
     const [currentIndex, setCurrentIndex] = useState(0);
     const {ready: bpReady, breakpoint} = useBreakpoint();
-    const isShortScreen = typeof window !== "undefined" && window.innerHeight < 800;
-    const getSafeTop = () =>
-        isShortScreen ? SAFE_TOP_BY_BP.base : breakpoint === "xl" || breakpoint === "2xl" ? SAFE_TOP_BY_BP[breakpoint] : SAFE_TOP_BY_BP.base
+    const getSafeTop = useCallback(() => {
+        const isShortScreen = typeof window !== "undefined" && window.innerHeight < 800;
 
-    const getYForIndex = (index: number) => {
+        if (isShortScreen) return SAFE_TOP_BY_BP.base;
+        if (breakpoint === "xl" || breakpoint === "2xl") return SAFE_TOP_BY_BP[breakpoint];
+
+        return SAFE_TOP_BY_BP.base;
+    }, [breakpoint]);
+
+    const getYForIndex = useCallback((index: number) => {
         if (index <= 0) return getSafeTop();
 
         const offset = offsetsRef.current[index] ?? 0;
         return centeredBaseRef.current - offset;
-    };
+    }, [getSafeTop]);
 
     useLayoutEffect(() => {
         const measure = () => {
@@ -69,9 +74,9 @@ const Reviews = () => {
         return () => {
             window.removeEventListener("resize", measure);
         };
-    }, [breakpoint]);
+    }, [getSafeTop, getYForIndex]);
 
-    const goTo = (next: number) => {
+    const goTo = useCallback((next: number) => {
         if (next === currentIndexRef.current) return;
 
         currentIndexRef.current = next;
@@ -87,7 +92,7 @@ const Reviews = () => {
             ease: "back.out(0.8)",
             overwrite: "auto",
         });
-    };
+    }, [getYForIndex]);
 
     const wrapRef = useVerticalPinnedScroll({
         count: reviews.length,

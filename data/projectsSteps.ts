@@ -16,8 +16,23 @@ export const projectsSteps: ProjectStep[] = [
     },
     {
         id: 2,
-        title: "Проект в работе",
-        description: " Скоро проект появится на сайте",
-        image: "/projectempty.png",
+        duration: "6-8 месяцев",
+        title: "Дом «Сходня», г. Солнечногорск",
+        description: " 300 м²",
+        image: "/projects/skhodnya.jpg",
+    },
+    {
+        id: 3,
+        duration: "6-8 месяцев",
+        title: "Дом «Аносино», Истринский район",
+        description: " 220 м²",
+        image: "/projects/anosino.jpg",
+    },
+    {
+        id: 4,
+        duration: "6-8 месяцев",
+        title: "Дом «Тимоново», Солнечногорский район",
+        description: " 150 м²",
+        image: "/projects/timonovo.jpg",
     },
 ];
