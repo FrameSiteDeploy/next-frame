@@ -21,8 +21,8 @@ export const reviews: ReviewData[] = [
     },
     {
         id: 2,
-        name: "Дмитрий",
-        location: "Тверская область",
+        name: "Денис и Евгения",
+        location: "Московская область",
         image: "/reviews/dmitry.png",
         rotate: "-0.5deg",
         paragraphs: [
@@ -32,8 +32,8 @@ export const reviews: ReviewData[] = [
     },
     {
         id: 3,
-        name: "Светлана и Игорь",
-        location: "Ленинградская область",
+        name: "Даниил и Елена",
+        location: "Московская область",
         image: "/reviews/aleksey-maria.png",
         rotate: "0.5deg",
         paragraphs: [
