@@ -104,7 +104,8 @@ const CountryDropdown = ({
                     </div>
 
                     <div
-                        className="overflow-y-auto max-h-56"
+                        data-lenis-prevent
+                        className="overflow-y-auto overscroll-contain max-h-56"
                         style={{
                             scrollbarWidth: 'thin',
                             scrollbarColor: 'rgba(255,255,255,0.1) transparent',
