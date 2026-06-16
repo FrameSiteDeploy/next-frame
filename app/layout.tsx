@@ -5,6 +5,7 @@ import Header from "@/components/layout/Header";
 import React from "react";
 import LenisProvider from "@/components/providers/LenisProvider";
 import Footer from "@/components/layout/Footer";
+import YandexMetrika from "@/components/providers/YandexMetrika";
 
 const montserrat = Montserrat({
     subsets: ["latin", "cyrillic"],
@@ -41,6 +42,7 @@ export default function RootLayout({
             </LenisProvider>
             <Footer/>
         </div>
+        <YandexMetrika/>
         </body>
         </html>
     );
